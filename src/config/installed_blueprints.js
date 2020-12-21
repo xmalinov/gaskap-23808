@@ -9,7 +9,6 @@ export const installed_blueprints = [
 { name: 'BlankScreen11187373', human_name: 'Blank Screen 11', access_route: 'BlankScreen11187373'},
 { name: 'BlankScreen10187372', human_name: 'Blank Screen 10', access_route: 'BlankScreen10187372'},
 { name: 'BlankScreen9187371', human_name: 'Blank Screen 9', access_route: 'BlankScreen9187371'},
-{ name: 'BlankScreen8187370', human_name: 'Blank Screen 8', access_route: 'BlankScreen8187370'},
 { name: 'BlankScreen7187369', human_name: 'Blank Screen 7', access_route: 'BlankScreen7187369'},
 { name: 'BlankScreen6187368', human_name: 'Blank Screen 6', access_route: 'BlankScreen6187368'},
 { name: 'BlankScreen5187367', human_name: 'Blank Screen 5', access_route: 'BlankScreen5187367'},
