@@ -1,5 +1,5 @@
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet, ViewSet
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
@@ -57,4 +57,5 @@ class ProfileViewSet(ModelViewSet):
     serializer_class = ProfileSerializer
     queryset = Profile.objects.all()
     authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = [IsAuthenticated, ]
     http_method_names = ["get", "put", "patch"]

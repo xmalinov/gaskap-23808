@@ -244,9 +244,3 @@ if DEBUG or not (EMAIL_HOST_USER and EMAIL_HOST_PASSWORD):
         logging.warning(
             "You should setup `SENDGRID_USERNAME` and `SENDGRID_PASSWORD` env vars to send emails.")
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ]
-}
