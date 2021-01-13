@@ -170,14 +170,15 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = "optional"
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
-ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = False
 ACCOUNT_UNIQUE_EMAIL = True
 LOGIN_REDIRECT_URL = "users:redirect"
 
 ACCOUNT_ADAPTER = "users.adapters.AccountAdapter"
 SOCIALACCOUNT_ADAPTER = "users.adapters.SocialAccountAdapter"
 ACCOUNT_ALLOW_REGISTRATION = env.bool("ACCOUNT_ALLOW_REGISTRATION", True)
-SOCIALACCOUNT_ALLOW_REGISTRATION = env.bool("SOCIALACCOUNT_ALLOW_REGISTRATION", True)
+SOCIALACCOUNT_ALLOW_REGISTRATION = env.bool(
+    "SOCIALACCOUNT_ALLOW_REGISTRATION", True)
 
 REST_AUTH_SERIALIZERS = {
     # Replace password reset serializer to fix 500 error
@@ -224,7 +225,6 @@ if USE_S3:
     MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 
-
 # start fcm_django push notifications
 FCM_DJANGO_SETTINGS = {
     "FCM_SERVER_KEY": env.str("FCM_SERVER_KEY", "")
@@ -240,5 +240,13 @@ SWAGGER_SETTINGS = {
 if DEBUG or not (EMAIL_HOST_USER and EMAIL_HOST_PASSWORD):
     # output email to console instead of sending
     if not DEBUG:
-        logging.warning("You should setup `SENDGRID_USERNAME` and `SENDGRID_PASSWORD` env vars to send emails.")
+        logging.warning(
+            "You should setup `SENDGRID_USERNAME` and `SENDGRID_PASSWORD` env vars to send emails.")
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
