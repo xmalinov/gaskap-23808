@@ -8,16 +8,37 @@ from allauth.account.adapter import get_adapter
 from allauth.account.utils import setup_user_email
 from rest_framework import serializers
 from rest_auth.serializers import PasswordResetSerializer
+from rest_framework.validators import UniqueValidator
 
 from home.models import CustomText, HomePage
+from users.models import Profile, UserType
 
 User = get_user_model()
 
 
 class SignupSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(label=_("Full name"))
+    phone_number = serializers.CharField(
+        label=_("Phone number"), write_only=True)
+    user_type = serializers.IntegerField(label=_("User type"), write_only=True)
+    school = serializers.CharField(
+        label=_("School"), write_only=True, required=False, allow_null=True)
+
     class Meta:
         model = User
-        fields = ('id', 'name', 'email', 'password')
+        fields = ('id', 'name', 'email', 'password',  'school',
+                  'user_type', 'phone_number', 'name')
+
+        phone_number = serializers.CharField(
+            max_length=15,
+            validators=[
+                UniqueValidator(
+                    queryset=Profile.objects.all(),
+                    message="A user is already registered with this phone number.",
+                )
+            ]
+        )
+
         extra_kwargs = {
             'password': {
                 'write_only': True,
@@ -45,7 +66,20 @@ class SignupSerializer(serializers.ModelSerializer):
                     _("A user is already registered with this e-mail address."))
         return email
 
+    def validate_user_type(self, user_type):
+        try:
+            user_type_insance = UserType.objects.get(id=user_type)
+        except UserType.DoesNotExist:
+            raise serializers.ValidationError(
+                _("The provided user type id does not exist")
+            )
+        return user_type_insance
+
     def create(self, validated_data):
+        user_type = validated_data.pop("user_type")
+        phone_number = validated_data.pop("phone_number")
+        school = validated_data.pop(
+            "school") if "school" in validated_data else None
         user = User(
             email=validated_data.get('email'),
             name=validated_data.get('name'),
@@ -57,6 +91,13 @@ class SignupSerializer(serializers.ModelSerializer):
         )
         user.set_password(validated_data.get('password'))
         user.save()
+
+        profile = Profile()
+        profile.user = user
+        profile.user_type = user_type
+        profile.phone_number = phone_number
+        profile.school = school
+        profile.save()
         request = self._get_request()
         setup_user_email(request, user, [])
         return user
@@ -87,3 +128,9 @@ class UserSerializer(serializers.ModelSerializer):
 class PasswordSerializer(PasswordResetSerializer):
     """Custom serializer for rest_auth to solve reset password error"""
     password_reset_form_class = ResetPasswordForm
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = '__all__'
