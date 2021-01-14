@@ -1,6 +1,5 @@
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
-from rest_framework.authtoken.serializers import AuthTokenSerializer
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet, ViewSet
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
@@ -10,8 +9,10 @@ from home.api.v1.serializers import (
     CustomTextSerializer,
     HomePageSerializer,
     UserSerializer,
+    ProfileSerializer,
 )
 from home.models import CustomText, HomePage
+from users.models import Profile
 
 
 class SignupViewSet(ModelViewSet):
@@ -21,8 +22,6 @@ class SignupViewSet(ModelViewSet):
 
 class LoginViewSet(ViewSet):
     """Based on rest_framework.authtoken.views.ObtainAuthToken"""
-
-    serializer_class = AuthTokenSerializer
 
     def create(self, request):
         serializer = self.serializer_class(
