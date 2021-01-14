@@ -14,24 +14,34 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.contrib import admin
-from django.urls import path, include
 from allauth.account.views import confirm_email
-from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from rest_framework import permissions
+
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import path, include, re_path
+
 
 urlpatterns = [
     path("", include("home.urls")),
     path("accounts/", include("allauth.urls")),
     path("modules/", include("modules.urls")),
-    path("api/v1/", include("home.api.v1.urls")),
-    path("admin/", admin.site.urls),
-    path("users/", include("users.urls", namespace="users")),
-    path("rest-auth/", include("rest_auth.urls")),
+    path(
+        "api/v1/",
+        include(("home.api.v1.urls", "home"), namespace="home-v1"),
+    ),
+    path(
+        "api/v1/schools",
+        include(("schools.api.v1.urls", "schools"), namespace="schools-v1"),
+    ),
+    re_path(r"admin/?", admin.site.urls),
+    path("api/v1/auth/", include("rest_auth.urls")),
     # Override email confirm to use allauth's HTML view instead of rest_auth's API view
-    path("rest-auth/registration/account-confirm-email/<str:key>/", confirm_email),
-    path("rest-auth/registration/", include("rest_auth.registration.urls")),
+    path("api/v1/auth/registration/account-confirm-email/<str:key>/", confirm_email),
+    path("api/v1/auth/registration/", include("rest_auth.registration.urls")),
 ]
 
 admin.site.site_header = "Gaskap"
@@ -52,5 +62,9 @@ schema_view = get_schema_view(
 )
 
 urlpatterns += [
-    path("api-docs/", schema_view.with_ui("swagger", cache_timeout=0), name="api_docs")
+    re_path(
+        r"api/docs/?", schema_view.with_ui("swagger", cache_timeout=0), name="api_docs"
+    ),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

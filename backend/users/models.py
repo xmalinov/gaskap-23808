@@ -1,10 +1,12 @@
 from datetime import date
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
+from django_extensions.db.models import TimeStampedModel
 
-from utils.models import BaseModel
+from home.utils import get_upload_path
 
 
 class User(AbstractUser):
@@ -19,108 +21,95 @@ class User(AbstractUser):
 
     # First Name and Last Name do not cover name patterns
     # around the globe.
-    name = models.CharField(_("Name of User"), blank=True,
-                            null=True, max_length=255)
+    name = models.CharField(_("Name of User"), blank=True, null=True, max_length=255)
 
     def get_absolute_url(self):
         return reverse("users:detail", kwargs={"username": self.username})
 
 
-class UserType(BaseModel):
-    STUDENT = 1
-    TEACHER = 2
-    PARENT = 3
-    SCHOOL = 4
+class Profile(TimeStampedModel):
+    USER_TYPE_STUDENT = "student"
+    USER_TYPE_TEACHER = "teacher"
+    USER_TYPE_PARENT = "parent"
+    USER_TYPE_SCHOOL = "school"
 
-    TYPE_CHOICES = [
-        (STUDENT, "student"),
-        (TEACHER, "teacher"),
-        (PARENT, "parent"),
-        (SCHOOL, "school"),
+    USER_TYPE_CHOICES = [
+        (USER_TYPE_STUDENT, "Student"),
+        (USER_TYPE_TEACHER, "Teacher"),
+        (USER_TYPE_PARENT, "Parent"),
+        (USER_TYPE_SCHOOL, "School"),
     ]
 
-    id = models.PositiveSmallIntegerField(
-        choices=TYPE_CHOICES, primary_key=True)
-
-    class Meta:
-        verbose_name = _("StudentType")
-        verbose_name_plural = _("UserTypes")
-
-    def __str__(self):
-        return self.get_id_display()
-
-    def get_absolute_url(self):
-        return reverse("UserType_detail", kwargs={"pk": self.pk})
-
-
-class Grade(BaseModel):
-    KINDERGARTEN = 1
-    FIRST = 2
-    SECOND = 3
-    THIRD = 4
-    FORTH = 5
-    FIFTH = 6
-    SIXTH = 7
-    SEVENTH = 8
-    EIGTH = 9
-    FRESHMAN = 10
-    SOFTMORE = 11
-    JUNIOR = 12
-    SENIOR = 13
+    GRADE_KINDERGARTEN = "kindergarten"
+    GRADE_FIRST = "first"
+    GRADE_SECOND = "second"
+    GRADE_THIRD = "third"
+    GRADE_FORTH = "fourth"
+    GRADE_FIFTH = "fifth"
+    GRADE_SIXTH = "sixth"
+    GRADE_SEVENTH = "seventh"
+    GRADE_EIGTH = "eight"
+    GRADE_FRESHMAN = "freshman"
+    GRADE_SOPHOMORE = "sophomore"
+    GRADE_JUNIOR = "junior"
+    GRADE_SENIOR = "Senior"
 
     GRADE_CHOICES = [
-        (KINDERGARTEN, "kindergarten"),
-        (FIRST, "first"),
-        (SECOND, "second"),
-        (THIRD, "third"),
-        (FORTH, "forth"),
-        (FIFTH, "fifth"),
-        (SIXTH, "sixth"),
-        (SEVENTH, "seventh"),
-        (EIGTH, "eigth"),
-        (FRESHMAN, "freshman"),
-        (SOFTMORE, "softmore"),
-        (JUNIOR, "junior"),
-        (SENIOR, "senior")
+        (GRADE_KINDERGARTEN, "Kindergarten"),
+        (GRADE_FIRST, "First"),
+        (GRADE_SECOND, "Second"),
+        (GRADE_THIRD, "Third"),
+        (GRADE_FORTH, "Fourth"),
+        (GRADE_FIFTH, "Fifth"),
+        (GRADE_SIXTH, "Sixth"),
+        (GRADE_SEVENTH, "Seventh"),
+        (GRADE_EIGTH, "Eigth"),
+        (GRADE_FRESHMAN, "Freshman"),
+        (GRADE_SOPHOMORE, "Sophomore"),
+        (GRADE_JUNIOR, "Junior"),
+        (GRADE_SENIOR, "Senior"),
     ]
 
-    id = models.PositiveSmallIntegerField(
-        choices=GRADE_CHOICES, primary_key=True)
+    user = models.OneToOneField(
+        "users.User",
+        verbose_name=_("User"),
+        related_name="profile",
+        on_delete=models.CASCADE,
+    )
 
-    class Meta:
-        verbose_name = _("Grade")
-        verbose_name_plural = _("Grades")
+    user_type = models.CharField(
+        _("User Type"), max_length=50, choices=USER_TYPE_CHOICES
+    )
 
-    def __str__(self):
-        return self.get_id_display()
-
-    def get_absolute_url(self):
-        return reverse("Grade_detail", kwargs={"pk": self.pk})
-
-
-class Profile(BaseModel):
-    user = models.OneToOneField("users.User", verbose_name=_(
-        "User"), related_name="user_profile", on_delete=models.CASCADE)
-
-    user_type = models.ForeignKey(
-        "users.UserType", verbose_name=_("User Type"), on_delete=models.CASCADE, related_name="profile", default=1)
-    phone_number = models.CharField(_("Phone number"), max_length=50)
-    school = models.CharField(
-        _("School"), max_length=50, null=True, blank=True)
+    phone_number = models.CharField(_("Phone number"), max_length=17, blank=True)
+    school = models.ForeignKey(
+        "schools.School", related_name="profile", on_delete=models.SET_NULL, null=True
+    )
     state = models.CharField(_("State"), max_length=50, null=True, blank=True)
     city = models.CharField(_("City"), max_length=50, null=True, blank=True)
-    student_id = models.CharField(
-        _("Student ID"), max_length=50, blank=True, null=True)
-    grade = models.ForeignKey("users.Grade", verbose_name=_(
-        "Grade"), on_delete=models.CASCADE, related_name="profile", null=True, blank=True)
-    dob = models.DateField(_("Date of birth"), null=True, blank=True)
+    student_id = models.CharField(_("Student ID"), max_length=50, blank=True, null=True)
+    grade = models.CharField(
+        _("Grade"), max_length=50, choices=GRADE_CHOICES, blank=True, null=True
+    )
+    parent_guardian_name = models.CharField(_("Parent/Guardian Name"), max_length=100)
+    date_of_birth = models.DateField(_("Date of birth"), null=True, blank=True)
     profile_pic = models.ImageField(
-        _("Profile pic"), upload_to=None, blank=True, null=True)
+        _("Profile pic"), upload_to=get_upload_path, blank=True, null=True
+    )
+
+    def __str__(self):
+        return self.user.name
 
     @property
     def age(self):
         today = date.today()
-        age = today.year - self.dob.year - ((today.month, today.day) <
-                                            (self.dob.month, self.dob.day))
+        age = (
+            today.year
+            - self.date_of_birth.year
+            - (
+                (today.month, today.day)
+                < (self.date_of_birth.month, self.date_of_birth.day)
+            )
+        )
 
         return age
