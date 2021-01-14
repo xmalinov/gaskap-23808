@@ -34,7 +34,7 @@ urlpatterns = [
         include(("home.api.v1.urls", "home"), namespace="home-v1"),
     ),
     path(
-        "api/v1/schools",
+        "api/v1/schools/",
         include(("schools.api.v1.urls", "schools"), namespace="schools-v1"),
     ),
     re_path(r"admin/?", admin.site.urls),
