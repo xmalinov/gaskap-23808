@@ -16,24 +16,30 @@ User = get_user_model()
 
 
 class ChatConsumer(WebsocketConsumer):
-    @staticmethod
-    def get_chat_participants(chat_id):
-        chat = get_object_or_404(Thread, id=chat_id)
-        return chat.participants.all()
+    def isAuthorized(self):
+        authorization = True
+        user_contact = get_object_or_404(User, username=self.me)
+        chat_participants = User.objects.filter(threads__id=self.room_name)
+        if user_contact not in chat_participants:
+            authorization = False
+        return authorization
 
     def fetch_messages(self, data):
+        if not self.isAuthorized():
+            message = "You are not authorized to view messages in this chat"
+            raise ValidationError(message)
+
         messages = Thread.get_last_10_messages(self.room_name)
         content = {"messages": self.messages_to_json(messages)}
 
         self.send_message(content)
 
     def new_message(self, data):
-        user_contact = get_object_or_404(User, username=data["from"])
-        chat_participants = User.objects.filter(threads__id=self.room_name)
-        if user_contact not in chat_participants:
+        if not self.isAuthorized():
             message = "You are not authorized to send a message to this chat"
             raise ValidationError(message)
 
+        user_contact = get_object_or_404(User, username=self.me)
         message = Message.objects.create(contact=user_contact, content=data["message"])
         current_chat = get_object_or_404(Thread, id=self.room_name)
         current_chat.messages.add(message)
@@ -57,7 +63,7 @@ class ChatConsumer(WebsocketConsumer):
     def connect(self):
         self.room_name = self.scope["url_route"]["kwargs"]["room_name"]
         self.room_name_group = f"chat_{self.room_name}"
-
+        self.me = self.scope["user"]
         async_to_sync(self.channel_layer.group_add)(
             self.room_name_group, self.channel_name
         )
