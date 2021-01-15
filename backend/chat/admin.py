@@ -1,7 +1,10 @@
 from django.contrib import admin
 
-from .models import Contact, Message, Chat
+from .models import Message, Thread
 
-admin.site.register(Chat)
-admin.site.register(Contact)
-admin.site.register(Message)
+admin.site.register(Thread)
+
+
+@admin.register(Message)
+class MessageAdmin(admin.ModelAdmin):
+    list_display = ("contact", "content")
