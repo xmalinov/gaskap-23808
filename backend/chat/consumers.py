@@ -1,10 +1,19 @@
 import json
 from django.contrib.auth import get_user_model
+from django.http import HttpResponseForbidden
+from django.utils.encoding import force_text
+from django.utils.translation import ugettext as _
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 
+
 from .models import Message
-from .utils import get_last_10_messages, get_user_contact, get_current_chat
+from .utils import (
+    get_last_10_messages,
+    get_user_contact,
+    get_current_chat,
+    get_chat_participants,
+)
 
 User = get_user_model()
 
@@ -18,6 +27,12 @@ class ChatConsumer(WebsocketConsumer):
 
     def new_message(self, data):
         user_contact = get_user_contact(data["from"])
+        chat_participants = get_chat_participants(self.room_name)
+        if user_contact not in chat_participants:
+            message = force_text(
+                _("You are not authorized to send a message to this chat")
+            )
+            raise HttpResponseForbidden()
         message = Message.objects.create(contact=user_contact, content=data["message"])
         current_chat = get_current_chat(self.room_name)
         current_chat.messages.add(message)

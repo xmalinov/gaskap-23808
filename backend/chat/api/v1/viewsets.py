@@ -13,10 +13,9 @@ from chat.utils import get_user_contact
 class ChatViewSet(viewsets.ViewSet):
     def list(self, request):
         queryset = Chat.objects.all()
-        username = self.request.query_params.get("username", None)
-        if username is not None:
-            contact = get_user_contact(username)
-            queryset = contact.chats.all()
+        username = self.request.user.username
+        contact = get_user_contact(username)
+        queryset = contact.chats.all()
         serializer = ChatSerializer(queryset, many=True)
         return Response(serializer.data)
 
