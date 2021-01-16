@@ -14,14 +14,14 @@ class ThreadAdmin(admin.ModelAdmin):
         "get_participants",
     )
 
-    search_display = ("id",)
+    search_fields = ("id",)
 
     def get_participants(self, obj):
-        return "\n".join([f"{p.id}" for p in obj.participants.all()])
+        return "\n".join([p.email for p in obj.participants.all()])
 
 
 @admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
     list_display = ("id", "contact", "content")
 
-    search_display = ("id",)
+    search_fields = ("id", "contact__name", "content")
