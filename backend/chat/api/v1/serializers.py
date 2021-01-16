@@ -16,18 +16,9 @@ class MessageSerializer(serializers.ModelSerializer):
 
 
 class ThreadSerializer(serializers.ModelSerializer):
-    messages = MessageSerializer(many=True)
-
     class Meta:
         model = Thread
-        fields = ("id", "participants", "messages")
-        read_only_fields = ("messages",)
-
-    def create(self, validated_data):
-        participants = validated_data.get("participants", None)
-        thread = Thread()
-        thread.save()
-        for username in participants:
-            user = get_object_or_404(User, username=username)
-            thread.participants.add(user)
-        return thread
+        fields = (
+            "id",
+            "participants",
+        )
