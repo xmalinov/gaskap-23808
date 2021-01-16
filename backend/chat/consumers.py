@@ -16,33 +16,16 @@ User = get_user_model()
 
 
 class ChatConsumer(WebsocketConsumer):
-    def isAuthorized(self):
-        authorization = True
-        user_contact = get_object_or_404(User, username=self.me)
-        chat_participants = User.objects.filter(threads__id=self.room_name)
-        if user_contact not in chat_participants:
-            authorization = False
-        return authorization
-
-    def fetch_messages(self, data):
-        if not self.isAuthorized():
-            message = "You are not authorized to view messages in this chat"
-            raise ValidationError(message)
-
-        messages = Thread.get_last_10_messages(self.room_name)
-        content = {"messages": self.messages_to_json(messages)}
-
-        self.send_message(content)
-
     def new_message(self, data):
-        if not self.isAuthorized():
-            message = "You are not authorized to send a message to this chat"
+        thread = Thread.objects.filter(
+            id=self.thread_id, participants=self.user
+        ).first()
+        if not thread:
+            message = "You are not authorized to send a message to this thread"
             raise ValidationError(message)
-
-        user_contact = get_object_or_404(User, username=self.me)
-        message = Message.objects.create(contact=user_contact, content=data["message"])
-        current_chat = get_object_or_404(Thread, id=self.room_name)
-        current_chat.messages.add(message)
+        message = Message.objects.create(
+            contact=self.user, content=data["message"], thread=thread
+        )
         content = {"command": "new_message", "message": self.message_to_json(message)}
 
         return self.send_chat_message(content)
@@ -58,21 +41,21 @@ class ChatConsumer(WebsocketConsumer):
             "timestamp": str(message.created),
         }
 
-    commands = {"fetch_messages": fetch_messages, "new_message": new_message}
+    commands = {"new_message": new_message}
 
     def connect(self):
-        self.room_name = self.scope["url_route"]["kwargs"]["room_name"]
-        self.room_name_group = f"chat_{self.room_name}"
-        self.me = self.scope["user"]
+        self.thread_id = self.scope["url_route"]["kwargs"]["thread_id"]
+        self.thread_group = f"thread_{self.thread_id}"
+        self.user = self.scope["user"]
         async_to_sync(self.channel_layer.group_add)(
-            self.room_name_group, self.channel_name
+            self.thread_group, self.channel_name
         )
 
         self.accept()
 
     def disconnect(self, close_code):
         async_to_sync(self.channel_layer.group_discard)(
-            self.room_name_group, self.channel_name
+            self.thread_group, self.channel_name
         )
 
     def receive(self, text_data):
@@ -81,7 +64,7 @@ class ChatConsumer(WebsocketConsumer):
 
     def send_chat_message(self, message):
         async_to_sync(self.channel_layer.group_send)(
-            self.room_name_group, {"type": "chat_message", "message": message}
+            self.thread_group, {"type": "chat_message", "message": message}
         )
 
     def send_message(self, message):

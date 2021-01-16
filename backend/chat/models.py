@@ -12,6 +12,12 @@ class Message(TimeStampedModel):
         on_delete=models.CASCADE,
     )
     content = models.TextField(_("Content"))
+    thread = models.ForeignKey(
+        "chat.Thread",
+        related_name="messages",
+        verbose_name=_("Thread"),
+        on_delete=models.CASCADE,
+    )
 
     class Meta:
         verbose_name = _("Message")
@@ -25,20 +31,10 @@ class Thread(TimeStampedModel):
     participants = models.ManyToManyField(
         "users.User", related_name="threads", verbose_name=_("Participants")
     )
-    messages = models.ManyToManyField(
-        "chat.Message",
-        verbose_name=_("Messages"),
-        related_name="threads",
-        blank=True,
-    )
 
     class Meta:
         verbose_name = _("Thread")
         verbose_name_plural = _("Threads")
 
     def __str__(self):
-        return f"{self.pk}"
-
-    @staticmethod
-    def get_last_10_messages(chat_id):
-        return Thread.objects.get(pk=chat_id).messages.all()[:10]
+        return self.pk
