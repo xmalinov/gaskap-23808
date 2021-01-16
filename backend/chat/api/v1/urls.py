@@ -6,7 +6,7 @@ from rest_framework_nested import routers
 from chat.api.v1 import viewsets
 
 router = DefaultRouter()
-router.register("threads", viewsets.ThreadViewSet, basename="thread")
+router.register("threads", viewsets.ThreadViewSet, basename="threads")
 
 message_router = routers.NestedSimpleRouter(router, r"threads", lookup="thread")
 

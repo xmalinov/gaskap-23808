@@ -1,10 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 
-from rest_framework import viewsets, status
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from rest_framework.exceptions import NotFound
+from rest_framework import viewsets
 
 from chat.api.v1.serializers import ThreadSerializer, MessageSerializer
 from chat.models import Thread, Message
@@ -29,8 +26,5 @@ class MessageViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self, *args, **kwargs):
         thread_id = self.kwargs.get("thread_pk")
-        try:
-            thread = Thread.objects.get(id=thread_id)
-        except Thread.DoesNotExist:
-            raise NotFound("A thread with this id does not exist")
-        return self.queryset.filter(thread=thread)
+        thread = get_object_or_404(Thread, id=thread_id)
+        return self.request.user.messages.filter(thread=thread)
