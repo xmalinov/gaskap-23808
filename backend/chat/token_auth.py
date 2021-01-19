@@ -43,7 +43,7 @@ class TokenAuthMiddlewareInstance:
         if b"token" in decoded_qs:
             token = decoded_qs.get(b"token").pop().decode()
             self.scope["user"] = await get_user(token)
-        return await self.inner(self.scope, receive, send)
 
-
-TokenAuthMiddlewareStack = lambda inner: TokenAuthMiddleware(AuthMiddlewareStack(inner))
+        # Instantiate our inner application
+        inner = self.inner(self.scope)
+        return await inner(receive, send)

@@ -55,6 +55,7 @@ LOCAL_APPS = [
     "users.apps.UsersConfig",
 ]
 THIRD_PARTY_APPS = [
+    "channels",
     "rest_framework",
     "rest_framework.authtoken",
     "rest_auth",
@@ -71,7 +72,6 @@ THIRD_PARTY_APPS = [
     # start fcm_django push notifications
     "fcm_django",
     # end fcm_django push notifications
-    "channels",
 ]
 INSTALLED_APPS += LOCAL_APPS + THIRD_PARTY_APPS
 
@@ -261,12 +261,12 @@ if DEBUG or not (EMAIL_HOST_USER and EMAIL_HOST_PASSWORD):
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 
-ASGI_APPLICATION = "gaskap_23808.asgi.application"
+ASGI_APPLICATION = "gaskap_23808.routing.application"
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)],
+            "hosts": [("redis", 6379)],
         },
     },
 }

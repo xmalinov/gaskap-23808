@@ -37,4 +37,4 @@ class Thread(TimeStampedModel):
         verbose_name_plural = _("Threads")
 
     def __str__(self):
-        return self.pk
+        return f"{self.pk}"
