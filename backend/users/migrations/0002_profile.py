@@ -30,7 +30,6 @@ class Migration(migrations.Migration):
                 ('parent_guardian_name', models.CharField(max_length=100, verbose_name='Parent/Guardian Name')),
                 ('date_of_birth', models.DateField(blank=True, null=True, verbose_name='Date of birth')),
                 ('profile_pic', models.ImageField(blank=True, null=True, upload_to=home.utils.get_upload_path, verbose_name='Profile pic')),
-                ('school', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='profile', to='schools.School')),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='profile', to=settings.AUTH_USER_MODEL, verbose_name='User')),
             ],
             options={

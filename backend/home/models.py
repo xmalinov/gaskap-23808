@@ -5,6 +5,12 @@ from django.db import models
 from django.db import models
 
 
+OPTIONAL = {
+    "blank": True,
+    "null": True,
+}
+
+
 class CustomText(models.Model):
     """
     Boilerplate model to populate the index homepage to demonstrate that the app was
@@ -19,11 +25,11 @@ class CustomText(models.Model):
 
     @property
     def api(self):
-        return f'/api/v1/customtext/{self.id}/'
+        return f"/api/v1/customtext/{self.id}/"
 
     @property
     def field(self):
-        return 'title'
+        return "title"
 
 
 class HomePage(models.Model):
@@ -32,12 +38,13 @@ class HomePage(models.Model):
     successfuly built. All references to it should be removed in order to remove this
     app from the project.
     """
+
     body = models.TextField()
 
     @property
     def api(self):
-        return f'/api/v1/homepage/{self.id}/'
+        return f"/api/v1/homepage/{self.id}/"
 
     @property
     def field(self):
-        return 'body'
+        return "body"

@@ -14,8 +14,7 @@ from rest_auth.serializers import PasswordResetSerializer
 from rest_framework.validators import UniqueValidator
 
 from home.models import CustomText, HomePage
-from users.models import Profile
-from schools.models import School
+from users.models import Student, Parent, Teacher, School
 
 User = get_user_model()
 
@@ -23,13 +22,10 @@ User = get_user_model()
 class SignupSerializer(serializers.ModelSerializer):
     phone_number = serializers.CharField(label=_("Phone number"), write_only=True)
     user_type = serializers.CharField(label=_("User type"), write_only=True)
-    school = serializers.IntegerField(
-        label=_("School"),
+    code = serializers.CharField(
+        label=_("Code"),
         write_only=True,
-        required=True,
-    )
-    parent_guardian_name = serializers.CharField(
-        label=_("Parent/Guardian name"), write_only=True, required=True
+        required=False,
     )
 
     class Meta:
@@ -39,10 +35,9 @@ class SignupSerializer(serializers.ModelSerializer):
             "name",
             "email",
             "password",
-            "school",
+            "code",
             "user_type",
             "phone_number",
-            "parent_guardian_name",
         )
 
         extra_kwargs = {
@@ -74,10 +69,9 @@ class SignupSerializer(serializers.ModelSerializer):
 
     def validate_user_type(self, user_type):
         if user_type not in [
-            Profile.USER_TYPE_STUDENT,
-            Profile.USER_TYPE_TEACHER,
-            Profile.USER_TYPE_PARENT,
-            Profile.USER_TYPE_SCHOOL,
+            User.USER_TYPE_STUDENT,
+            User.USER_TYPE_TEACHER,
+            User.USER_TYPE_PARENT,
         ]:
             raise serializers.ValidationError("Invalid user type.")
 
@@ -91,30 +85,69 @@ class SignupSerializer(serializers.ModelSerializer):
         phone_regex(phone_number)
         return phone_number
 
-    def validate_school(self, school):
-        school = School.objects.filter(id=school)
-        if not school.exists():
-            raise serializers.ValidationError("School does not exist.")
-        return school.first()
+    def validate_code(self, code):
+        user_type = self.initial_data.get("user_type")
+
+        if (
+            user_type == User.USER_TYPE_STUDENT
+            and not School.objects.filter(student_code=code).exists()
+        ):
+            raise serializers.ValidationError("Code is invalid.")
+        elif (
+            user_type == User.USER_TYPE_PARENT
+            and not Student.objects.filter(student_id=code).exists()
+        ):
+            raise serializers.ValidationError("Student ID is invalid.")
+        elif (
+            user_type == User.USER_TYPE_TEACHER
+            and not School.objects.filter(teacher_code=code).exists()
+        ):
+            raise serializers.ValidationError("Code is invalid.")
+
+        return code
 
     def create(self, validated_data):
+        user_type = validated_data.get("user_type")
         user = User(
             email=validated_data.get("email"),
             name=validated_data.get("name"),
             username=generate_unique_username(
                 [validated_data.get("name"), validated_data.get("email"), "user"]
             ),
+            user_type=user_type,
         )
         user.set_password(validated_data.get("password"))
         user.save()
 
-        Profile.objects.create(
-            user=user,
-            user_type=validated_data.get("user_type"),
-            phone_number=validated_data.get("phone_number"),
-            school=validated_data.get("school"),
-            parent_guardian_name=validated_data.get("parent_guardian_name"),
-        )
+        if user_type == User.USER_TYPE_STUDENT:
+            school = School.objects.filter(
+                student_code=validated_data.get("code")
+            ).first()
+            Student.objects.create(
+                user=user,
+                phone_number=validated_data.get("phone_number"),
+                school=school,
+            )
+
+        elif user_type == User.USER_TYPE_PARENT:
+            parent = Parent.objects.create(
+                user=user,
+                phone_number=validated_data.get("phone_number"),
+            )
+            student = Student.objects.filter(
+                student_id=validated_data.get("code")
+            ).first()
+            parent.students.add(student)
+
+        elif user_type == User.USER_TYPE_TEACHER:
+            school = School.objects.filter(
+                teacher_code=validated_data.get("code")
+            ).first()
+            Teacher.objects.create(
+                user=user,
+                phone_number=validated_data.get("phone_number"),
+                school=school,
+            )
 
         request = self._get_request()
         setup_user_email(request, user, [])
@@ -138,44 +171,105 @@ class HomePageSerializer(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    def validate_phone_number(self, phone_number):
+        phone_regex = RegexValidator(
+            regex=r"^\+?1?\d{9,15}$",
+            message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.",
+        )
+        phone_regex(phone_number)
+        return phone_number
+
+
+class SchoolSerializer(ProfileSerializer):
     class Meta:
-        model = Profile
+        model = School
         fields = [
             "id",
             "user",
-            "user_type",
+            "number",
+            "phone_number",
+            "state",
+            "city",
+            "profile_picture",
+            "color",
+        ]
+        read_only_fields = ["user"]
+
+
+class StudentSerializer(ProfileSerializer):
+    school = SchoolSerializer(read_only=True)
+
+    class Meta:
+        model = Student
+        fields = [
+            "id",
+            "user",
             "phone_number",
             "school",
             "state",
             "city",
             "student_id",
-            "school_id",
             "grade",
-            "parent_guardian_name",
             "date_of_birth",
-            "profile_pic",
+            "profile_picture",
         ]
-        read_only_fields = ["id", "user"]
+        read_only_fields = ["user", "school"]
+
+
+class ParentSerializer(ProfileSerializer):
+    students = StudentSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Parent
+        fields = [
+            "id",
+            "user",
+            "phone_number",
+            "state",
+            "city",
+            "date_of_birth",
+            "profile_picture",
+            "students",
+        ]
+        read_only_fields = ["user", "students"]
+
+
+class TeacherSerializer(ProfileSerializer):
+    school = SchoolSerializer(read_only=True)
+
+    class Meta:
+        model = Teacher
+        fields = [
+            "id",
+            "user",
+            "phone_number",
+            "school",
+            "state",
+            "city",
+            "date_of_birth",
+            "profile_picture",
+            "subject",
+        ]
+        read_only_fields = ["user", "school"]
 
 
 class UserSerializer(serializers.ModelSerializer):
-    profile = ProfileSerializer()
+    profile = serializers.SerializerMethodField()
 
     class Meta:
         model = User
-        fields = ["id", "email", "name", "profile", "is_active"]
+        fields = ["id", "email", "name", "user_type", "profile", "is_active"]
+        read_only_fields = ["user_type"]
 
-    def update(self, instance, validated_data):
-        profile = (
-            validated_data.pop("profile") if validated_data.get("profile") else None
-        )
-
-        instance = super().update(instance, validated_data)
-
-        if profile:
-            Profile.objects.filter(user=instance).update(**profile)
-
-        return instance
+    def get_profile(self, obj):
+        if obj.user_type == User.USER_TYPE_SCHOOL:
+            return SchoolSerializer(instance=obj.profile).data
+        elif obj.user_type == User.USER_TYPE_PARENT:
+            return ParentSerializer(instance=obj.profile).data
+        elif obj.user_type == User.USER_TYPE_TEACHER:
+            return TeacherSerializer(instance=obj.profile).data
+        else:
+            return StudentSerializer(instance=obj.profile).data
 
 
 class PasswordSerializer(PasswordResetSerializer):
@@ -194,3 +288,7 @@ class TokenSerializer(serializers.ModelSerializer):
     class Meta:
         model = TokenModel
         fields = ("key", "user")
+
+
+class EmailResetSerializer(serializers.Serializer):
+    email = serializers.EmailField()

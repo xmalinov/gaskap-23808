@@ -1,8 +1,11 @@
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
 
-router = DefaultRouter()
+from home.api.v1 import viewsets
 
 urlpatterns = [
-    path("", include(router.urls)),
+    path(
+        "auth/email-confirmation/send/",
+        viewsets.EmailConfirmation.as_view(),
+        name="send-email-confirmation",
+    ),
 ]
