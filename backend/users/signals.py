@@ -12,6 +12,8 @@ def on_school_saved(sender, instance, created, **kwargs):
             instance.student_code = "S" + str(instance.id) + get_random_string(length=4)
         if not instance.teacher_code:
             instance.teacher_code = "T" + str(instance.id) + get_random_string(length=4)
+        if not instance.number:
+            instance.number = str(instance.id) + get_random_string(length=6)
         instance.save()
 
 

@@ -137,7 +137,7 @@ class Student(Profile):
     )
 
     def __str__(self):
-        return self.user.name
+        return self.user.name or self.user.email
 
 
 class Parent(Profile):
@@ -153,7 +153,7 @@ class Parent(Profile):
     )
 
     def __str__(self):
-        return self.user.name
+        return self.user.name or self.user.email
 
 
 class Teacher(Profile):
@@ -172,7 +172,7 @@ class Teacher(Profile):
     )
 
     def __str__(self):
-        return self.user.name
+        return self.user.name or self.user.email
 
 
 class School(Profile):
@@ -182,7 +182,7 @@ class School(Profile):
         related_name="school",
         on_delete=models.CASCADE,
     )
-    number = models.CharField(max_length=50)
+    number = models.CharField(max_length=50, **OPTIONAL)
     about = models.TextField(_("About"), **OPTIONAL)
     student_code = models.CharField(
         _("Student Code"), max_length=50, unique=True, **OPTIONAL
@@ -193,4 +193,4 @@ class School(Profile):
     color = models.CharField(_("Color"), max_length=100, **OPTIONAL)
 
     def __str__(self):
-        return self.user.name
+        return self.user.name or self.user.email
