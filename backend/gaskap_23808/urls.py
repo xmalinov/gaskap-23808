@@ -41,6 +41,10 @@ urlpatterns = [
     # Override email confirm to use allauth's HTML view instead of rest_auth's API view
     path("api/v1/auth/registration/account-confirm-email/<str:key>/", confirm_email),
     path("api/v1/auth/registration/", include("rest_auth.registration.urls")),
+    path(
+        "api/v1/chat/",
+        include(("chat.api.v1.urls", "chat"), namespace="chat-v1"),
+    ),
 ]
 
 admin.site.site_header = "Gaskap"

@@ -51,6 +51,7 @@ LOCAL_APPS = [
     "home",
     "modules",
     "schools",
+    "chat",
     "users.apps.UsersConfig",
 ]
 THIRD_PARTY_APPS = [
@@ -70,6 +71,7 @@ THIRD_PARTY_APPS = [
     # start fcm_django push notifications
     "fcm_django",
     # end fcm_django push notifications
+    "channels",
 ]
 INSTALLED_APPS += LOCAL_APPS + THIRD_PARTY_APPS
 
@@ -186,6 +188,9 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": "10",
+    "MAX_PAGE_SIZE": "100",
 }
 
 REST_AUTH_SERIALIZERS = {
@@ -254,3 +259,14 @@ if DEBUG or not (EMAIL_HOST_USER and EMAIL_HOST_PASSWORD):
             "You should setup `SENDGRID_USERNAME` and `SENDGRID_PASSWORD` env vars to send emails."
         )
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+
+ASGI_APPLICATION = "gaskap_23808.asgi.application"
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
