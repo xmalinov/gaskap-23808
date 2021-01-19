@@ -5,10 +5,7 @@ from .models import Message, Thread
 
 @admin.register(Thread)
 class ThreadAdmin(admin.ModelAdmin):
-    fields = (
-        "id",
-        "participants",
-    )
+    fields = ("participants",)
     list_display = (
         "id",
         "get_participants",
