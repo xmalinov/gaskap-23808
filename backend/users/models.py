@@ -1,11 +1,12 @@
-from datetime import date
-
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
+from django.utils.crypto import get_random_string
 from django.utils.translation import ugettext_lazy as _
 from django_extensions.db.models import TimeStampedModel
 
+from home.models import OPTIONAL
 from home.utils import get_upload_path
 
 
@@ -21,13 +22,6 @@ class User(AbstractUser):
 
     # First Name and Last Name do not cover name patterns
     # around the globe.
-    name = models.CharField(_("Name of User"), blank=True, null=True, max_length=255)
-
-    def get_absolute_url(self):
-        return reverse("users:detail", kwargs={"username": self.username})
-
-
-class Profile(TimeStampedModel):
     USER_TYPE_STUDENT = "student"
     USER_TYPE_TEACHER = "teacher"
     USER_TYPE_PARENT = "parent"
@@ -40,6 +34,59 @@ class Profile(TimeStampedModel):
         (USER_TYPE_SCHOOL, "School"),
     ]
 
+    name = models.CharField(_("Name of User"), **OPTIONAL, max_length=255)
+    user_type = models.CharField(
+        _("User Type"),
+        max_length=50,
+        choices=USER_TYPE_CHOICES,
+        default=USER_TYPE_STUDENT,
+    )
+
+    def get_absolute_url(self):
+        return reverse("users:detail", kwargs={"username": self.username})
+
+    @property
+    def profile(self):
+        if self.user_type == User.USER_TYPE_SCHOOL:
+            return self.school
+        elif self.user_type == User.USER_TYPE_PARENT:
+            return self.parent
+        elif self.user_type == User.USER_TYPE_TEACHER:
+            return self.teacher
+        return self.student
+
+    def __str__(self):
+        return self.name or self.email
+
+
+class Profile(TimeStampedModel):
+    phone_number = models.CharField(_("Phone number"), max_length=17, **OPTIONAL)
+    state = models.CharField(_("State"), max_length=50, **OPTIONAL)
+    city = models.CharField(_("City"), max_length=50, **OPTIONAL)
+    date_of_birth = models.DateField(_("Date of birth"), **OPTIONAL)
+    profile_picture = models.ImageField(
+        _("Profile picture"), upload_to=get_upload_path, **OPTIONAL
+    )
+
+    class Meta:
+        abstract = True
+
+    @property
+    def age(self):
+        today = timezone.now()
+        age = (
+            today.year
+            - self.date_of_birth.year
+            - (
+                (today.month, today.day)
+                < (self.date_of_birth.month, self.date_of_birth.day)
+            )
+        )
+
+        return age
+
+
+class Student(Profile):
     GRADE_KINDERGARTEN = "kindergarten"
     GRADE_FIRST = "first"
     GRADE_SECOND = "second"
@@ -52,7 +99,7 @@ class Profile(TimeStampedModel):
     GRADE_FRESHMAN = "freshman"
     GRADE_SOPHOMORE = "sophomore"
     GRADE_JUNIOR = "junior"
-    GRADE_SENIOR = "Senior"
+    GRADE_SENIOR = "senior"
 
     GRADE_CHOICES = [
         (GRADE_KINDERGARTEN, "Kindergarten"),
@@ -73,43 +120,77 @@ class Profile(TimeStampedModel):
     user = models.OneToOneField(
         "users.User",
         verbose_name=_("User"),
-        related_name="profile",
+        related_name="student",
         on_delete=models.CASCADE,
     )
-
-    user_type = models.CharField(
-        _("User Type"), max_length=50, choices=USER_TYPE_CHOICES
+    student_id = models.CharField(
+        _("Student ID"), unique=True, max_length=50, **OPTIONAL
     )
-
-    phone_number = models.CharField(_("Phone number"), max_length=17, blank=True)
-    school = models.ForeignKey(
-        "schools.School", related_name="profile", on_delete=models.SET_NULL, null=True
-    )
-    state = models.CharField(_("State"), max_length=50, null=True, blank=True)
-    city = models.CharField(_("City"), max_length=50, null=True, blank=True)
-    student_id = models.CharField(_("Student ID"), max_length=50, blank=True, null=True)
     grade = models.CharField(
-        _("Grade"), max_length=50, choices=GRADE_CHOICES, blank=True, null=True
+        _("Grade"), max_length=50, choices=GRADE_CHOICES, **OPTIONAL
     )
-    parent_guardian_name = models.CharField(_("Parent/Guardian Name"), max_length=100)
-    date_of_birth = models.DateField(_("Date of birth"), null=True, blank=True)
-    profile_pic = models.ImageField(
-        _("Profile pic"), upload_to=get_upload_path, blank=True, null=True
+    school = models.ForeignKey(
+        "users.School",
+        verbose_name=_("School"),
+        related_name="student",
+        on_delete=models.CASCADE,
     )
 
     def __str__(self):
         return self.user.name
 
-    @property
-    def age(self):
-        today = date.today()
-        age = (
-            today.year
-            - self.date_of_birth.year
-            - (
-                (today.month, today.day)
-                < (self.date_of_birth.month, self.date_of_birth.day)
-            )
-        )
 
-        return age
+class Parent(Profile):
+    user = models.OneToOneField(
+        "users.User",
+        verbose_name=_("User"),
+        related_name="parent",
+        on_delete=models.CASCADE,
+    )
+    students = models.ManyToManyField(
+        "users.Student",
+        related_name="parents",
+    )
+
+    def __str__(self):
+        return self.user.name
+
+
+class Teacher(Profile):
+    user = models.OneToOneField(
+        "users.User",
+        verbose_name=_("User"),
+        related_name="teacher",
+        on_delete=models.CASCADE,
+    )
+    subject = models.CharField(_("Subject"), max_length=50, **OPTIONAL)
+    school = models.ForeignKey(
+        "users.School",
+        verbose_name=_("School"),
+        related_name="teacher",
+        on_delete=models.CASCADE,
+    )
+
+    def __str__(self):
+        return self.user.name
+
+
+class School(Profile):
+    user = models.OneToOneField(
+        "users.User",
+        verbose_name=_("User"),
+        related_name="school",
+        on_delete=models.CASCADE,
+    )
+    number = models.CharField(max_length=50)
+    about = models.TextField(_("About"), **OPTIONAL)
+    student_code = models.CharField(
+        _("Student Code"), max_length=50, unique=True, **OPTIONAL
+    )
+    teacher_code = models.CharField(
+        _("Teacher Code"), max_length=50, unique=True, **OPTIONAL
+    )
+    color = models.CharField(_("Color"), max_length=100, **OPTIONAL)
+
+    def __str__(self):
+        return self.user.name

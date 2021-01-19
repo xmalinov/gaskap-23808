@@ -64,6 +64,7 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
     "django_extensions",
+    "django_filters",
     "drf_yasg",
     "storages",
     # start fcm_django push notifications

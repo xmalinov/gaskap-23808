@@ -26,7 +26,6 @@ from django.urls import path, include, re_path
 
 
 urlpatterns = [
-    path("", include("home.urls")),
     path("accounts/", include("allauth.urls")),
     path("modules/", include("modules.urls")),
     path(
@@ -34,8 +33,8 @@ urlpatterns = [
         include(("home.api.v1.urls", "home"), namespace="home-v1"),
     ),
     path(
-        "api/v1/schools/",
-        include(("schools.api.v1.urls", "schools"), namespace="schools-v1"),
+        "api/v1/users/",
+        include(("users.api.v1.urls", "users"), namespace="users-v1"),
     ),
     re_path(r"admin/?", admin.site.urls),
     path("api/v1/auth/", include("rest_auth.urls")),
