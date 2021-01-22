@@ -53,6 +53,7 @@ LOCAL_APPS = [
     "modules",
     "schools",
     "chat",
+    "classes",
     "users.apps.UsersConfig",
 ]
 THIRD_PARTY_APPS = [
@@ -67,6 +68,7 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
     "django_extensions",
+    "rest_framework_extensions",
     "django_filters",
     "drf_yasg",
     "storages",
@@ -197,13 +199,13 @@ REST_FRAMEWORK = {
 
 REST_AUTH_SERIALIZERS = {
     # Replace password reset serializer to fix 500 error
-    "PASSWORD_RESET_SERIALIZER": "home.api.v1.serializers.PasswordSerializer",
-    "USER_DETAILS_SERIALIZER": "home.api.v1.serializers.UserSerializer",
-    "TOKEN_SERIALIZER": "home.api.v1.serializers.TokenSerializer",
+    "PASSWORD_RESET_SERIALIZER": "users.api.v1.serializers.PasswordSerializer",
+    "USER_DETAILS_SERIALIZER": "users.api.v1.serializers.UserSerializer",
+    "TOKEN_SERIALIZER": "users.api.v1.serializers.TokenSerializer",
 }
 REST_AUTH_REGISTER_SERIALIZERS = {
     # Use custom serializer that has no username and matches web signup
-    "REGISTER_SERIALIZER": "home.api.v1.serializers.SignupSerializer",
+    "REGISTER_SERIALIZER": "users.api.v1.serializers.SignupSerializer",
 }
 
 # Custom user model
@@ -212,6 +214,7 @@ AUTH_USER_MODEL = "users.User"
 EMAIL_HOST = env.str("EMAIL_HOST", "smtp.sendgrid.net")
 EMAIL_HOST_USER = env.str("SENDGRID_USERNAME", "")
 EMAIL_HOST_PASSWORD = env.str("SENDGRID_PASSWORD", "")
+DEFAULT_FROM_EMAIL = env.str("DEFAULT_FROM_EMAIL", "")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
