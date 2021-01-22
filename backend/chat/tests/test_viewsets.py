@@ -13,18 +13,27 @@ from users.tests.factories import UserFactory
 User = get_user_model()
 
 
-class MessageAPIViewTestCase(APITestCase):
+class AuthenticatedClientTestCase(APITestCase):
     def setUp(self):
-        self.user = UserFactory()
-        self.teacher_user = UserFactory(user_type=User.USER_TYPE_TEACHER)
+        self.user = UserFactory(user_type=User.USER_TYPE_STUDENT)
         self.user_pass = factory.Faker("password")
         self.user.set_password(self.user_pass)
         self.user.save()
 
         self.client = APIClient()
 
-        token = Token.objects.create(user=self.user)
-        self.client.credentials(HTTP_AUTHORIZATION=f"Token {token}")
+        self.token = Token.objects.create(user=self.user)
+
+        self.client.credentials(HTTP_AUTHORIZATION=f"Token {self.token.key}")
+
+
+class MessageAPIViewTestCase(AuthenticatedClientTestCase):
+    def setUp(self):
+        super().setUp()
+        self.teacher_user = UserFactory(user_type=User.USER_TYPE_TEACHER)
+        self.parent_user = UserFactory(user_type=User.USER_TYPE_PARENT)
+        self.school_user = UserFactory(user_type=User.USER_TYPE_SCHOOL)
+
         self.thread = ThreadFactory.create(
             participants=(self.user.id, self.teacher_user.id)
         )
@@ -36,7 +45,7 @@ class MessageAPIViewTestCase(APITestCase):
         response = self.client.post(reverse("chat-v1:threads-list"), data=data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-    def test_list_tread_messages(self):
+    def test_list_thread_messages(self):
         response = self.client.get(
             reverse("chat-v1:thread-messages-list", args=(self.thread.id,))
         )
@@ -49,3 +58,21 @@ class MessageAPIViewTestCase(APITestCase):
             )
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_student_cant_add_parent_as_participant(self):
+        data = {"participants": [self.user.id, self.parent_user.id]}
+        response = self.client.post(reverse("chat-v1:threads-list"), data=data)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_thread_should_have_two_participants(self):
+        data = {
+            "partcipants": [self.user.id, self.teacher_user.id, self.school_user.id]
+        }
+        response = self.client.post(reverse("chat-v1:threads-list"), data=data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_thread_user_should_be_a_participant(self):
+        """ Thread owner should be a participant """
+        data = {"participants": [self.teacher_user.id, self.school_user.id]}
+        response = self.client.post(reverse("chat-v1:threads-list"), data=data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

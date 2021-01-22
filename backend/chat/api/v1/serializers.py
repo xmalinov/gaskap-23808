@@ -46,4 +46,5 @@ class ThreadSerializer(serializers.ModelSerializer):
                 raise PermissionDenied(
                     f"You are not authorized to add user {participant.id} of user type {participant.user_type} as a participant."
                 )
+
         return participants

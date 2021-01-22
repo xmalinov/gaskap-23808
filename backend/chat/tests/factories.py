@@ -6,7 +6,7 @@ from users.tests.factories import UserFactory
 from chat import models
 
 
-facker = Factory.create()
+faker = Factory.create()
 
 
 class ThreadFactory(factory.django.DjangoModelFactory):
@@ -28,5 +28,5 @@ class MessageFactory(factory.django.DjangoModelFactory):
         model = models.Message
 
     contact = factory.SubFactory(UserFactory)
-    content = facker.text()
+    content = faker.text()
     thread = factory.SubFactory(ThreadFactory)
