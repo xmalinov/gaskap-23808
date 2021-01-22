@@ -45,6 +45,12 @@ urlpatterns = [
         "api/v1/chat/",
         include(("chat.api.v1.urls", "chat"), namespace="chat-v1"),
     ),
+    path(
+        "api/v1/notifications/",
+        include(
+            ("notifications.api.v1.urls", "notifications"), namespace="notifications-v1"
+        ),
+    ),
 ]
 
 admin.site.site_header = "Gaskap"
