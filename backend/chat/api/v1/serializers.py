@@ -35,16 +35,18 @@ class ThreadSerializer(serializers.ModelSerializer):
         if len(participants) != 2:
             raise serializers.ValidationError("A thread should have two users.")
 
-        for participant in participants:
-            if user.id == participant.id:
-                continue
-
-            if user.user_type and participant.user_type in [
-                User.USER_TYPE_STUDENT,
-                User.USER_TYPE_PARENT,
-            ]:
-                raise PermissionDenied(
-                    f"You are not authorized to add user {participant.id} of user type {participant.user_type} as a participant."
-                )
+        participant_filter = filter(
+            lambda participant: user != participant
+            and (
+                user.user_type
+                and participant.user_type
+                in [User.USER_TYPE_STUDENT, User.USER_TYPE_PARENT]
+            ),
+            participants,
+        )
+        if list(participant_filter):
+            raise PermissionDenied(
+                f"You are not authorized to add this user as a participant."
+            )
 
         return participants
