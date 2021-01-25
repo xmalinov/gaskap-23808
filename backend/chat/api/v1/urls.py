@@ -15,6 +15,12 @@ message_router.register(
 )
 
 urlpatterns = [
-    path("", include(router.urls)),
-    path("", include(message_router.urls)),
+    path(
+        "",
+        include(router.urls),
+    ),
+    path(
+        "",
+        include(message_router.urls),
+    ),
 ]
