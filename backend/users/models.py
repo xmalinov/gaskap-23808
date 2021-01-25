@@ -55,6 +55,14 @@ class User(AbstractUser):
             return self.teacher
         return self.student
 
+    @property
+    def is_teacher(self):
+        return self.user_type == "teacher"
+
+    @property
+    def is_school(self):
+        return self.user_type == "school"
+
     def __str__(self):
         return self.name or self.email
 

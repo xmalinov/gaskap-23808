@@ -1,8 +1,11 @@
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
 
 from rest_framework import viewsets
 from rest_framework_extensions.mixins import NestedViewSetMixin
+from rest_framework.permissions import IsAuthenticated
 
+from classes.api.v1.permissions import HasClassPermission
 from classes.api.v1.serializers import (
     ClassVideoCommentSerializer,
     ClassVideoSerializer,
@@ -40,6 +43,18 @@ class ClassVideoViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
 class ClassViewSet(viewsets.ModelViewSet):
     serializer_class = ClassSerializer
     queryset = Class.objects.all()
+    permission_classes = [IsAuthenticated, HasClassPermission]
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        user = self.request.user
+        student_teacher_list = ["student", "teacher"]
+
+        if user.user_type in student_teacher_list:
+            return qs.filter(teacher__school=user.profile.school)
+        elif user.user_type == "parent":
+            return qs.filter(teacher__school=user.profile.students.first().school)
+        return qs.filter(teacher__school=user.profile)
 
 
 class ClassStudentViewSet(NestedViewSetMixin, viewsets.ReadOnlyModelViewSet):
