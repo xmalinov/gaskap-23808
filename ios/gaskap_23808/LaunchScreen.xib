@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MainLogo" translatesAutoresizingMaskIntoConstraints="NO" id="hCs-K7-Lqo">
+                    <rect key="frame" x="208" y="208" width="64" height="64"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="64" id="8w9-bH-rJv"/>
+                        <constraint firstAttribute="width" constant="64" id="K1u-RN-dhJ"/>
+                    </constraints>
+                </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MainSlogon" translatesAutoresizingMaskIntoConstraints="NO" id="Ucm-HU-qiU">
+                    <rect key="frame" x="90" y="260" width="300" height="200"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="200" id="XAN-dK-X1R"/>
+                        <constraint firstAttribute="width" constant="300" id="Yn9-Nq-mCO"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Ucm-HU-qiU" secondAttribute="bottom" constant="20" id="HUg-NA-8ry"/>
+                <constraint firstItem="Ucm-HU-qiU" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="KUn-vX-uBr"/>
+                <constraint firstItem="hCs-K7-Lqo" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="dim-bc-Upf"/>
+                <constraint firstItem="hCs-K7-Lqo" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="fX5-ph-1jT"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="548" y="455"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="MainLogo" width="72" height="72"/>
+        <image name="MainSlogon" width="178" height="74"/>
+    </resources>
+</document>
