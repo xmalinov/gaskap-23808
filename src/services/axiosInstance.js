@@ -1,7 +1,6 @@
 import axios from 'axios';
-import { general_message } from '../constants/message';
-import { isConnectedToNetwork, request } from '../utils/http';
-import { getAccessToken } from '../utils/storageUtils';
+import {general_message} from '../constants/message';
+import {getAccessToken} from '../utils/storageUtils';
 
 // import { handleErrors } from '../errorHandler';
 

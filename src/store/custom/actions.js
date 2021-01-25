@@ -122,3 +122,18 @@ export const updateUserFailed = error => ({
   type: types.UPDATE_USER_FAILED,
   payload: error,
 });
+
+export const updateProfilePhoto = params => ({
+  type: types.UPDATE_PROFILE_PHOTO,
+  payload: params,
+});
+
+export const updateProfilePhotoSucceeded = response => ({
+  type: types.UPDATE_PROFILE_PHOTO_SUCCEEDED,
+  payload: response,
+});
+
+export const updateProfilePhotoFailed = error => ({
+  type: types.UPDATE_PROFILE_PHOTO_FAILED,
+  payload: error,
+});

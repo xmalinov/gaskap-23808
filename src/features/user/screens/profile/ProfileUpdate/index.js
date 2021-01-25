@@ -6,6 +6,7 @@ import Dialog from 'react-native-dialog';
 import * as customActions from '../../../../../store/custom/constants';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {format, compareAsc} from 'date-fns';
+import _ from 'lodash';
 
 import {styles} from './styles';
 import {
@@ -13,6 +14,7 @@ import {
   keys,
   profileItems,
   settingItems,
+  userTypes,
 } from '../../../../../constants/generalConstants';
 import Picker from '../../../../../components/Picker';
 import {Loader} from '../../../../../components/Loader';
@@ -148,14 +150,26 @@ class ProfileUpdate extends Component {
   getPlaceHolder = item => {
     let placeholder = '';
     const {profile} = this.props;
+    const userType = profile.user_type;
 
-    if (profile) {
+    let student = profile.profile;
+    let school = profile.profile.school;
+
+    if (userType === userTypes.parent.toLowerCase()) {
+      student = profile.profile.students[0];
+      school = student.school;
+    }
+
+    if (profile && !_.isEmpty(student)) {
       switch (item.title) {
         case profileItems.studentId:
-          placeholder = profile.profile.student_id;
+          placeholder = student.student_id;
+          break;
+        case profileItems.studentName:
+          placeholder = student.student_name;
           break;
         case profileItems.schoolId:
-          placeholder = profile.profile.school.number;
+          placeholder = school.number;
           break;
         case profileItems.age:
           placeholder = profile.profile.date_of_birth;
@@ -173,7 +187,7 @@ class ProfileUpdate extends Component {
       placeholder = item.title;
     }
 
-    return placeholder || item.title;
+    return placeholder;
   };
 
   handleGradeChange = ({value}) => {

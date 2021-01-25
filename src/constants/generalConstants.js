@@ -43,6 +43,7 @@ export const settingItems = {
 
 export const profileItems = {
   studentId: 'Student ID',
+  studentName: 'Student Name',
   schoolId: 'School ID#',
   grade: 'Grade',
   age: 'Date of Birth',
@@ -65,4 +66,108 @@ export const grades = {
   sophomore: 'sophomore',
   junior: 'junior',
   senior: 'senior',
+};
+
+export const profileListItems = {
+  student: [
+    {
+      title: profileItems.studentId,
+      iconName: 'user',
+      isEditable: false,
+    },
+    {
+      title: profileItems.schoolId,
+      iconName: 'school',
+      isEditable: false,
+    },
+    {
+      title: profileItems.grade,
+      iconName: 'user',
+      isEditable: true,
+    },
+    {
+      title: profileItems.age,
+      iconName: 'user',
+      isEditable: true,
+    },
+    {
+      title: profileItems.city,
+      iconName: 'home',
+      isEditable: true,
+    },
+    {
+      title: profileItems.state,
+      iconName: 'home',
+      isEditable: true,
+    },
+    {
+      title: profileItems.classAssigned,
+      iconName: 'book-open',
+      isEditable: false,
+    },
+  ],
+  teacher: [
+    {
+      title: profileItems.studentId,
+      iconName: 'user',
+      isEditable: false,
+    },
+    {
+      title: profileItems.schoolId,
+      iconName: 'school',
+      isEditable: false,
+    },
+    {
+      title: profileItems.grade,
+      iconName: 'user',
+      isEditable: true,
+    },
+    {
+      title: profileItems.age,
+      iconName: 'user',
+      isEditable: true,
+    },
+    {
+      title: profileItems.city,
+      iconName: 'home',
+      isEditable: true,
+    },
+    {
+      title: profileItems.state,
+      iconName: 'home',
+      isEditable: true,
+    },
+    {
+      title: profileItems.classAssigned,
+      iconName: 'book-open',
+      isEditable: false,
+    },
+  ],
+  parent: [
+    {
+      title: profileItems.studentId,
+      iconName: 'user',
+      isEditable: false,
+    },
+    // {
+    //   title: profileItems.studentName,
+    //   iconName: 'user',
+    //   isEditable: false,
+    // },
+    {
+      title: profileItems.schoolId,
+      iconName: 'school',
+      isEditable: false,
+    },
+    {
+      title: profileItems.city,
+      iconName: 'home',
+      isEditable: true,
+    },
+    {
+      title: profileItems.state,
+      iconName: 'home',
+      isEditable: true,
+    },
+  ],
 };

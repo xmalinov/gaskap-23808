@@ -28,7 +28,6 @@ import HomeScreen from '../features/home/screens';
 import EventsScreen from '../features/home/screens/Events';
 
 import NewsScreen from '../features/home/screens/News';
-import {create} from 'react-test-renderer';
 import ChatScreen from '../features/chat/ChatScreen';
 import {getAccessToken} from '../utils/storageUtils';
 
@@ -133,7 +132,7 @@ function ProfileStackScreen() {
   return (
     <ProfileStack.Navigator
       initialRouteName={ScreenConstants.profile}
-      headerMode="none"
+    // headerMode="none"
     >
       <ProfileStack.Screen
         name={ScreenConstants.profile}
@@ -146,14 +145,7 @@ function ProfileStackScreen() {
         name={ScreenConstants.profileUpdate}
         component={ProfileUpdate}
         options={{
-          title: 'Update',
-          headerRight: () => (
-            <Button
-              onPress={() => alert('This is a button!')}
-              title="Done"
-              color="black"
-            />
-          ),
+          title: 'Profile Detail',
         }}
       />
     </ProfileStack.Navigator>
@@ -166,7 +158,7 @@ function SettingStackScreen() {
   return (
     <SettingStack.Navigator
       initialRouteName={ScreenConstants.setting}
-      headerMode="none"
+    // headerMode="none"
     >
       <SettingStack.Screen
         name={ScreenConstants.setting}
@@ -438,7 +430,7 @@ const RootStack = createStackNavigator();
 
 function RootStackScreen() {
   return (
-    <RootStack.Navigator>
+    <RootStack.Navigator headerMode="none">
       <RootStack.Screen
         name="Main"
         component={TabNavigator}
@@ -477,7 +469,7 @@ const Routes = props => {
   // };
   console.log(props.auth);
 
-  return props.auth && (!props.user.is_active || props.profile.is_active) ? (
+  return props.auth && (props.user.is_active || props.profile.is_active) ? (
     <RootStackScreen />
   ) : (
       <AuthNavigation />

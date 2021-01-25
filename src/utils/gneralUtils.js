@@ -40,7 +40,12 @@ generalUtils.normalizeSeconds = number => {
 generalUtils.parseErrorMessage = err => {
   const errorKey = Object.keys(err)[0];
   const errorMessage = Array.isArray(err) ? err[errorKey][0] : err[errorKey];
-  console.log(err, '---------')
 
   return errorMessage || general_message.something_wrong;
+};
+
+generalUtils.isValidEmail = mail => {
+  return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+    mail,
+  );
 };

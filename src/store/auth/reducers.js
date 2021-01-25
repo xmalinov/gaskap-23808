@@ -2,7 +2,7 @@ import * as types from './constants';
 
 const initialState = {
   user: {},
-  auth: true,
+  auth: false,
   email: '',
   password: '',
   schoolName: '',

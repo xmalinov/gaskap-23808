@@ -1,9 +1,11 @@
+import {profileListItems} from '../../constants/generalConstants';
 import * as types from './constants';
 
 const initialState = {
   schools: [],
   users: ['Teacher', 'Parent', 'Student'],
   profile: {},
+  profileItems: [],
   isLoadingProfile: false,
   profileError: '',
   isChangingPassword: false,
@@ -15,6 +17,8 @@ const initialState = {
   settingsError: '',
   profileUpdateFailed: false,
   userUpdateFailed: true,
+  updatingProfilePhoto: false,
+  profilePhotoFailed: false,
 };
 
 const getSchoolsSuccess = (state, action) => {
@@ -34,11 +38,12 @@ const getProfileStarted = (state, action) => {
 };
 
 const getProfileSuccess = (state, action) => {
-  console.log('success', action);
+  console.log('success', action, profileListItems[action.payload.user_type]);
   return {
     ...state,
     profile: action.payload,
     isLoadingProfile: false,
+    profileItems: profileListItems[action.payload.user_type],
     profileError: '',
   };
 };
@@ -195,6 +200,40 @@ const updateUserFailed = (state, action) => {
   };
 };
 
+const updateProfilePhotoStarted = (state, action) => {
+  console.log('started');
+  return {
+    ...state,
+    isMakingNetworkRequest: true,
+    profileError: '',
+    updateProfilePhotoFailed: false,
+  };
+};
+
+const updateProfilePhotoSuccess = (state, action) => {
+  console.log('success', action.payload);
+  return {
+    ...state,
+    isMakingNetworkRequest: false,
+    profileError: '',
+    profile: {
+      ...state.profile,
+      profile: action.payload,
+    },
+    updateProfilePhotoFailed: false,
+  };
+};
+
+const updateProfilePhotoFailed = (state, action) => {
+  console.log('failed');
+  return {
+    ...state,
+    isMakingNetworkRequest: false,
+    profileError: 'Unable to upload profile photo',
+    updateProfilePhotoFailed: true,
+  };
+};
+
 const handlers = {
   [types.GET_SCHOOLS_SUCCEEDED]: getSchoolsSuccess,
   [types.GET_PROFILE]: getProfileStarted,
@@ -220,6 +259,10 @@ const handlers = {
   [types.UPDATE_USER]: updateUserStarted,
   [types.UPDATE_USER_SUCCEEDED]: updateUserSuccess,
   [types.UPDATE_USER_FAILED]: updateUserFailed,
+
+  [types.UPDATE_PROFILE_PHOTO]: updateProfilePhotoStarted,
+  [types.UPDATE_PROFILE_PHOTO_SUCCEEDED]: updateProfilePhotoSuccess,
+  [types.UPDATE_PROFILE_PHOTO_FAILED]: updateProfilePhotoFailed,
 };
 
 export default function authReducer(state = initialState, action) {

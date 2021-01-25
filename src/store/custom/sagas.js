@@ -97,7 +97,7 @@ function* updateProfileWorker(action) {
     const message = Array.isArray(errorMessage)
       ? errorMessage[0]
       : errorMessage;
-    SimpleToast.show(message);
+    SimpleToast.show(message, SimpleToast.LONG);
     yield put(actions.updateProfileFailed(message));
   }
 }
@@ -117,13 +117,33 @@ function* updateUserWorker(action) {
     const message = Array.isArray(errorMessage)
       ? errorMessage[0]
       : errorMessage;
-    SimpleToast.show(errorMessage);
+    SimpleToast.show(message, SimpleToast.LONG);
     yield put(actions.updateUserFailed(message));
   }
 }
 
 function* updateUserWatcher() {
   yield takeEvery(types.UPDATE_USER, updateUserWorker);
+}
+
+function* updateProfilePhotoWorker(action) {
+  try {
+    console.log(action);
+    const result = yield call(userApiService.updateProfilePhoto, action);
+    console.log(result.data);
+    yield put(actions.updateProfilePhotoSucceeded(result.data));
+  } catch (err) {
+    const errorMessage = generalUtils.parseErrorMessage(err);
+    const message = Array.isArray(errorMessage)
+      ? errorMessage[0]
+      : errorMessage;
+    SimpleToast.show(message, SimpleToast.LONG);
+    yield put(actions.updateProfilePhotoFailed(message));
+  }
+}
+
+function* updateProfilePhotoWatcher() {
+  yield takeEvery(types.UPDATE_PROFILE_PHOTO, updateProfilePhotoWorker);
 }
 
 // Read more information about root sagas in the documentation
@@ -139,6 +159,7 @@ export default function* customRootSaga() {
     changePhoneWatcher,
     updateProfileWatcher,
     updateUserWatcher,
+    updateProfilePhotoWatcher,
   ];
 
   yield all(

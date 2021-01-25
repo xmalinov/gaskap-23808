@@ -69,6 +69,18 @@ const updateUser = action => {
   return requestToServer(info);
 };
 
+const updateProfilePhoto = action => {
+  const url = end_points.updateProfile;
+  const info = {
+    url,
+    method: request_methods.patch,
+    params: action.obj,
+  };
+
+  console.log(info);
+  return requestToServer(info);
+};
+
 const sendVerificationEmail = () => {
   const url = end_points.sendConfirmationEmail;
   const info = {
@@ -88,4 +100,5 @@ export const userApiService = {
   updateProfile,
   updateUser,
   sendVerificationEmail,
+  updateProfilePhoto,
 };

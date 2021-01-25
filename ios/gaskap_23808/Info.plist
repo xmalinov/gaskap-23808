@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -109,13 +111,13 @@
 		<string>Fontisto.ttf</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
-	<string>Your message to user when the camera is accessed for the first time</string>
+	<string>You will be able to take photo with your camera</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Your message to user when the photo library is accessed for the first time</string>
+	<string>You will be able to select photos from library</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Your message to user when the microphone is accessed for the first time</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-  <string>$(PRODUCT_NAME) would like to save photos to your photo gallery</string>
+	<string>$(PRODUCT_NAME) would like to save photos to your photo gallery</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>UILaunchStoryboardName</key>

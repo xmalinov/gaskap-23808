@@ -10,6 +10,7 @@ import {connect} from 'react-redux';
 import * as authActions from '../../../../store/auth/constants';
 import SimpleToast from 'react-native-simple-toast';
 import {authMessage} from '../../../../constants/message';
+import generalUtils from '../../../../utils/gneralUtils';
 
 class EmailScreen extends Component {
   state = {
@@ -17,8 +18,12 @@ class EmailScreen extends Component {
   };
 
   handleNext = () => {
-    if (this.props.email && this.props.userType != '') {
-      this.props.navigation.navigate(ScreenConstants.addName);
+    if (this.props.email && this.props.userType !== '') {
+      if (generalUtils.isValidEmail(this.props.email)) {
+        this.props.navigation.navigate(ScreenConstants.addName);
+      } else {
+        SimpleToast.show(authMessage.invalidEmail);
+      }
     } else {
       SimpleToast.show(authMessage.noEmail);
     }

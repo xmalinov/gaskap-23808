@@ -7,7 +7,6 @@ import {
   takeLatest,
   throttle,
 } from 'redux-saga/effects';
-import {customApiService} from './services';
 import * as types from './constants';
 import * as actions from './actions';
 import {authApiService} from '../../services/auth';
@@ -85,9 +84,15 @@ function* setUserNameWorker(action) {
 function* signupWorker(action) {
   try {
     const result = yield call(authApiService.signup, action);
+    SimpleToast.show(result.data.detail);
     yield put(actions.signupSucceeded(result));
   } catch (err) {
     console.log(err);
+    const errorMessage = generalUtils.parseErrorMessage(err);
+    const message = Array.isArray(errorMessage)
+      ? errorMessage[0]
+      : errorMessage;
+    SimpleToast.show(message);
     yield put(actions.signupFailed(err));
   }
 }
@@ -137,6 +142,11 @@ function* deactivateAccountWorker(action) {
     // yield put(actions.deactivateAccountSucceeded(result.data));
     yield put(actions.deactivateAccountSucceeded({}));
   } catch (err) {
+    const errorMessage = generalUtils.parseErrorMessage(err);
+    const message = Array.isArray(errorMessage)
+      ? errorMessage[0]
+      : errorMessage;
+    SimpleToast.show(message);
     yield put(actions.deactivateAccountFailed(err));
   }
 }
@@ -152,6 +162,11 @@ function* logoutWorker(action) {
     yield call(storeAccessToken, '');
     yield put(actions.logoutSucceeded(result.data));
   } catch (err) {
+    const errorMessage = generalUtils.parseErrorMessage(err);
+    const message = Array.isArray(errorMessage)
+      ? errorMessage[0]
+      : errorMessage;
+    SimpleToast.show(message);
     yield put(actions.logoutFailed(err));
   }
 }

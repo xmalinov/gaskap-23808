@@ -22,6 +22,7 @@ export const authMessage = {
   noUserType: 'Please select user type first.',
   noCode: 'Please enter the code provided.',
   noEmail: 'Please enter email.',
+  invalidEmail: 'Enter valid email address',
   noName: 'Please enter your name.',
   noPassword: 'Please enter password',
   loginAgain: 'Login with new credential',
