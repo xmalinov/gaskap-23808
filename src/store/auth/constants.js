@@ -1,0 +1,30 @@
+/* Example constants
+export const GET_BALANCE = "GET_BALANCE"
+export const GET_BALANCE_SUCCEEDED = "GET_BALANCE_SUCCEEDED"
+export const GET_BALANCE_FAILED = "GET_BALANCE_FAILED"
+*/
+
+export const LOGIN = 'LOGIN';
+export const LOGIN_SUCCEEDED = 'LOGIN_SUCCEEDED';
+export const LOGIN_FAILED = 'LOGIN_FAILED';
+
+export const SIGNUP = 'SIGNUP';
+export const SIGNUP_SUCCEEDED = 'SIGNUP_SUCCEEDED';
+export const SIGNUP_FAILED = 'SIGNUP_FAILED';
+
+export const SET_SCHOOL = 'SET_SCHOOL';
+export const SET_CODE = 'SET_CODE';
+export const SET_USER_TYPE = 'SET_USER_TYPE';
+export const SET_EMAIL = 'SET_EMAIL';
+export const SET_NAME = 'SET_NAME';
+export const SET_PARENT_NAME = 'SET_PARENT_NAME';
+export const SET_PASSWORD = 'SET_PASSWORD';
+
+export const DEACTIVATE_ACCOUNT = 'DEACTIVATE_ACCOUNT';
+export const DEACTIVATE_ACCOUNT_SUCCEEDED = 'DEACTIVATE_ACCOUNT_SUCCEEDED';
+export const DEACTIVATE_ACCOUNT_FAILED = 'DEACTIVATE_ACCOUNT_FAILED';
+
+export const LOG_OUT = 'LOG_OUT';
+export const LOG_OUT_SUCCEEDED = 'LOG_OUT_SUCCEEDED';
+export const LOG_OUT_FAILED = 'LOG_OUT_FAILED';
+
