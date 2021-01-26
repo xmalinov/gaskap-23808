@@ -19,7 +19,7 @@ class ProfileAPIView(UpdateAPIView):
         if self.request.user.user_type == User.USER_TYPE_SCHOOL:
             return self.request.user.school
         elif self.request.user.user_type == User.USER_TYPE_PARENT:
-            return self.request.user.teacher
+            return self.request.user.parent
         elif self.request.user.user_type == User.USER_TYPE_TEACHER:
             return self.request.user.teacher
         else:
