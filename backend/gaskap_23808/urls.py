@@ -45,6 +45,10 @@ urlpatterns = [
         "api/v1/chat/",
         include(("chat.api.v1.urls", "chat"), namespace="chat-v1"),
     ),
+    path(
+        "api/v1/",
+        include(("news.api.v1.urls", "news"), namespace="news-v1"),
+    ),
 ]
 
 admin.site.site_header = "Gaskap"

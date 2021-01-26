@@ -54,6 +54,7 @@ LOCAL_APPS = [
     "schools",
     "chat",
     "classes",
+    "news",
     "users.apps.UsersConfig",
 ]
 THIRD_PARTY_APPS = [

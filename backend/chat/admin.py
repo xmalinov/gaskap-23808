@@ -6,10 +6,7 @@ from .models import Message, Thread
 @admin.register(Thread)
 class ThreadAdmin(admin.ModelAdmin):
     fields = ("participants",)
-    list_display = (
-        "id",
-        "get_participants",
-    )
+    list_display = ("id", "get_participants", "created")
 
     search_fields = ("id",)
 
@@ -21,4 +18,4 @@ class ThreadAdmin(admin.ModelAdmin):
 class MessageAdmin(admin.ModelAdmin):
     list_display = ("id", "contact", "content")
 
-    search_fields = ("id", "contact__name", "content")
+    search_fields = ("id", "contact__name", "content", "created")
