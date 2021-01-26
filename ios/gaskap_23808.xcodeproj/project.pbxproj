@@ -8,9 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* gaskap_23808Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* gaskap_23808Tests.m */; };
-		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		01077B1C1F614405B543AC17 /* Nunito-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4896057A7874236B24D7425 /* Nunito-Italic.ttf */; };
-		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
+		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		15750E5F640B44D39FDA2C5F /* Merriweather-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D363A40D266F4A2F9DA43BBB /* Merriweather-BoldItalic.ttf */; };
@@ -26,7 +25,6 @@
 		321B955E9F4B438B8801785E /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E7E14FAA250F4E34BCB78BC9 /* OpenSans-BoldItalic.ttf */; };
 		3771B36D64884BF0A0B4DC91 /* RobotoMono-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C44ECF700E4544E587E93789 /* RobotoMono-BoldItalic.ttf */; };
 		381938E5484D4BE0A64756D0 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DACF422EB66C4A2E8C8F57CB /* Lato-Bold.ttf */; };
-		3A8E8175A044E38D0A99C497 /* libPods-gaskap_23808Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72ABDF95BBC8C1A25E43E632 /* libPods-gaskap_23808Tests.a */; };
 		49219009619343CEADF8DA68 /* Montserrat-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E24F890818DA41B4BF35BE6B /* Montserrat-BoldItalic.ttf */; };
 		4C77C18783050D906770A235 /* libPods-gaskap_23808-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F54B9B2B81485B0522A46C /* libPods-gaskap_23808-tvOSTests.a */; };
 		523A8852C06F494284355BA7 /* Nunito-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4608F2B2D4EB4D0E8D6BD41F /* Nunito-BoldItalic.ttf */; };
@@ -46,6 +44,7 @@
 		9C5861C0EBCE400A88E9775C /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E0614ABDCB84854B5AB51DE /* Montserrat-Regular.ttf */; };
 		A68852BE500B42678DDAE277 /* Roboto-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BAFF8687B67C4A2AA17C072D /* Roboto-Italic.ttf */; };
 		AC7EA0244E114B5B8EB401B0 /* Roboto-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B7A594AB0CB4D12B02E2815 /* Roboto-BoldItalic.ttf */; };
+		AFAB9D3B4874FC3DEF85002C /* libPods-gaskap_23808-gaskap_23808Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECA1CB6079C28014C7827AAB /* libPods-gaskap_23808-gaskap_23808Tests.a */; };
 		B5BDF2F389B24F8EAF6EEB59 /* Nunito-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 54F1BA04FCED47AF89550842 /* Nunito-Bold.ttf */; };
 		B60B811922AD4DF1868ECA9E /* RobotoMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C269415E0FE346A19F799552 /* RobotoMono-Regular.ttf */; };
 		C92AB2CD06384333AA1C058D /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0800C252345C44FFA7D16C67 /* Montserrat-Bold.ttf */; };
@@ -54,6 +53,7 @@
 		D29256256E0E46B8B151D978 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AB618E2C4AE4F5F8CF4ED2D /* Lato-Italic.ttf */; };
 		D35EF35A031E4D6DBE58839A /* PlayfairDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 323F414BAD5F46D3B6E2E941 /* PlayfairDisplay-Regular.ttf */; };
 		D44699BCD7D9742ED80C7741 /* libPods-gaskap_23808.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F61A6BD06897C1A3EC3938C9 /* libPods-gaskap_23808.a */; };
+		D5E9BD8525BE7BE60084CDD2 /* gaskap-23808 in Resources */ = {isa = PBXBuildFile; fileRef = D5E9BD8425BE7BE60084CDD2 /* gaskap-23808 */; };
 		E3CFD1DEF67545E3AFDB79E5 /* PlayfairDisplay-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 676F20FD71214D9190326D50 /* PlayfairDisplay-BoldItalic.ttf */; };
 		E5E2C33491FA467E8F8AED08 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E0F655CC982417BA764CED1 /* Lato-Regular.ttf */; };
 		FA8C1BD91F9A4FEFB4DBD6D3 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64AE690294094167971B822D /* OpenSans-Bold.ttf */; };
@@ -91,7 +91,6 @@
 		13B07F961A680F5B00A75B9A /* gaskap_23808.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gaskap_23808.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = gaskap_23808/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = gaskap_23808/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = gaskap_23808/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = gaskap_23808/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = gaskap_23808/main.m; sourceTree = "<group>"; };
@@ -125,7 +124,6 @@
 		676F20FD71214D9190326D50 /* PlayfairDisplay-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PlayfairDisplay-BoldItalic.ttf"; path = "../src/assets/fonts/PlayfairDisplay-BoldItalic.ttf"; sourceTree = "<group>"; };
 		6D0B923FF7A84803B644A739 /* PlayfairDisplay-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PlayfairDisplay-Italic.ttf"; path = "../src/assets/fonts/PlayfairDisplay-Italic.ttf"; sourceTree = "<group>"; };
 		6F1A06742E3B4455BF5AFAB3 /* icomoon.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = icomoon.ttf; path = ../src/assets/fonts/icomoon.ttf; sourceTree = "<group>"; };
-		72ABDF95BBC8C1A25E43E632 /* libPods-gaskap_23808Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-gaskap_23808Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		746F4BBF0DB970A2D42EEC17 /* Pods-gaskap_23808-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gaskap_23808-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-gaskap_23808-tvOSTests/Pods-gaskap_23808-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		7AB618E2C4AE4F5F8CF4ED2D /* Lato-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Italic.ttf"; path = "../src/assets/fonts/Lato-Italic.ttf"; sourceTree = "<group>"; };
 		7C47A149BE5291B60381FB86 /* Pods-gaskap_23808.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gaskap_23808.release.xcconfig"; path = "Target Support Files/Pods-gaskap_23808/Pods-gaskap_23808.release.xcconfig"; sourceTree = "<group>"; };
@@ -135,6 +133,7 @@
 		93F54B9B2B81485B0522A46C /* libPods-gaskap_23808-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-gaskap_23808-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		947B2E52773C4C5789EA3DB2 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		9A2ECDC8B29B424EB5FF531B /* Nunito-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Nunito-Regular.ttf"; path = "../src/assets/fonts/Nunito-Regular.ttf"; sourceTree = "<group>"; };
+		A15AA0DAE4092C06CDADDAEE /* Pods-gaskap_23808-gaskap_23808Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gaskap_23808-gaskap_23808Tests.debug.xcconfig"; path = "Target Support Files/Pods-gaskap_23808-gaskap_23808Tests/Pods-gaskap_23808-gaskap_23808Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		A8C265B6841F4B44A0C6B980 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		AD8D22C5F8C3459A8B557019 /* PlayfairDisplay-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PlayfairDisplay-Bold.ttf"; path = "../src/assets/fonts/PlayfairDisplay-Bold.ttf"; sourceTree = "<group>"; };
 		AFC5BBAEF506410CA25CDC01 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
@@ -149,11 +148,14 @@
 		C48B69FA3F87B18FAEBB94F4 /* Pods-gaskap_23808-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gaskap_23808-tvOS.release.xcconfig"; path = "Target Support Files/Pods-gaskap_23808-tvOS/Pods-gaskap_23808-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		D15C77ACF6924404B6F7A135 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		D363A40D266F4A2F9DA43BBB /* Merriweather-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Merriweather-BoldItalic.ttf"; path = "../src/assets/fonts/Merriweather-BoldItalic.ttf"; sourceTree = "<group>"; };
+		D5E9BD8425BE7BE60084CDD2 /* gaskap-23808 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "gaskap-23808"; path = ..; sourceTree = "<group>"; };
+		D8F6EA9FA1BA808E3F527087 /* Pods-gaskap_23808-gaskap_23808Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gaskap_23808-gaskap_23808Tests.release.xcconfig"; path = "Target Support Files/Pods-gaskap_23808-gaskap_23808Tests/Pods-gaskap_23808-gaskap_23808Tests.release.xcconfig"; sourceTree = "<group>"; };
 		DACF422EB66C4A2E8C8F57CB /* Lato-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Bold.ttf"; path = "../src/assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; };
 		DEB7F9516140407291C96D71 /* Merriweather-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Merriweather-Regular.ttf"; path = "../src/assets/fonts/Merriweather-Regular.ttf"; sourceTree = "<group>"; };
 		E004F5E506E341CD9D28AA4D /* Lato-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-BoldItalic.ttf"; path = "../src/assets/fonts/Lato-BoldItalic.ttf"; sourceTree = "<group>"; };
 		E24F890818DA41B4BF35BE6B /* Montserrat-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-BoldItalic.ttf"; path = "../src/assets/fonts/Montserrat-BoldItalic.ttf"; sourceTree = "<group>"; };
 		E7E14FAA250F4E34BCB78BC9 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-BoldItalic.ttf"; path = "../src/assets/fonts/OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		ECA1CB6079C28014C7827AAB /* libPods-gaskap_23808-gaskap_23808Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-gaskap_23808-gaskap_23808Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		EF9316ACE3687608B33E9EB0 /* libPods-gaskap_23808-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-gaskap_23808-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -169,7 +171,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A8E8175A044E38D0A99C497 /* libPods-gaskap_23808Tests.a in Frameworks */,
+				AFAB9D3B4874FC3DEF85002C /* libPods-gaskap_23808-gaskap_23808Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,12 +222,12 @@
 		13B07FAE1A68108700A75B9A /* gaskap_23808 */ = {
 			isa = PBXGroup;
 			children = (
+				D5E9BD8425BE7BE60084CDD2 /* gaskap-23808 */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = gaskap_23808;
@@ -239,7 +241,7 @@
 				F61A6BD06897C1A3EC3938C9 /* libPods-gaskap_23808.a */,
 				EF9316ACE3687608B33E9EB0 /* libPods-gaskap_23808-tvOS.a */,
 				93F54B9B2B81485B0522A46C /* libPods-gaskap_23808-tvOSTests.a */,
-				72ABDF95BBC8C1A25E43E632 /* libPods-gaskap_23808Tests.a */,
+				ECA1CB6079C28014C7827AAB /* libPods-gaskap_23808-gaskap_23808Tests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -289,6 +291,8 @@
 				746F4BBF0DB970A2D42EEC17 /* Pods-gaskap_23808-tvOSTests.release.xcconfig */,
 				47833C1AED5F340F95FE12C0 /* Pods-gaskap_23808Tests.debug.xcconfig */,
 				09AF706F01A08611C56BED82 /* Pods-gaskap_23808Tests.release.xcconfig */,
+				A15AA0DAE4092C06CDADDAEE /* Pods-gaskap_23808-gaskap_23808Tests.debug.xcconfig */,
+				D8F6EA9FA1BA808E3F527087 /* Pods-gaskap_23808-gaskap_23808Tests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -390,7 +394,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				016A96EFB7A116E19D37B02D /* [CP] Copy Pods Resources */,
+				8BE92188446820660EA0C2A5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -507,7 +511,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				592C50879F7B4E5AAB9EEF5E /* CrimsonText-Bold.ttf in Resources */,
 				16ADA8091A4C4AE985704520 /* CrimsonText-BoldItalic.ttf in Resources */,
 				CCB1D492906B4B3D805A3DAD /* CrimsonText-Italic.ttf in Resources */,
@@ -520,6 +523,7 @@
 				15750E5F640B44D39FDA2C5F /* Merriweather-BoldItalic.ttf in Resources */,
 				20322AB7DFF24C4EA511C256 /* Merriweather-Italic.ttf in Resources */,
 				2626FA13119A47B7B5E4D14C /* Merriweather-Regular.ttf in Resources */,
+				D5E9BD8525BE7BE60084CDD2 /* gaskap-23808 in Resources */,
 				C92AB2CD06384333AA1C058D /* Montserrat-Bold.ttf in Resources */,
 				49219009619343CEADF8DA68 /* Montserrat-BoldItalic.ttf in Resources */,
 				7E6799B24ECE4202BC4DA94D /* Montserrat-Italic.ttf in Resources */,
@@ -601,6 +605,7 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-gaskap_23808-gaskap_23808Tests/Pods-gaskap_23808-gaskap_23808Tests-resources.sh",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -639,6 +644,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-gaskap_23808-gaskap_23808Tests/Pods-gaskap_23808-gaskap_23808Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		750A2F298314BF7E7280B347 /* [CP] Check Pods Manifest.lock */ = {
@@ -678,43 +684,20 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-gaskap_23808Tests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-gaskap_23808-gaskap_23808Tests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BD9550FEDD788B21C49074C0 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-gaskap_23808-tvOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D3E7A440C2B193513630B1EC /* [CP] Copy Pods Resources */ = {
+		8BE92188446820660EA0C2A5 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-uifix/Pods-uifix-resources.sh",
-				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/Target Support Files/Pods-gaskap_23808/Pods-gaskap_23808-resources.sh",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -753,7 +736,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-calendar/Pods-calendar-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-gaskap_23808/Pods-gaskap_23808-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BD9550FEDD788B21C49074C0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-gaskap_23808-tvOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EC668F604DCE489E91E855CB /* [CP] Check Pods Manifest.lock */ = {
@@ -868,22 +873,10 @@
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		13B07FB11A68108700A75B9A /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				13B07FB21A68108700A75B9A /* Base */,
-			);
-			name = LaunchScreen.xib;
-			path = gaskap_23808;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 47833C1AED5F340F95FE12C0 /* Pods-gaskap_23808Tests.debug.xcconfig */;
+			baseConfigurationReference = A15AA0DAE4092C06CDADDAEE /* Pods-gaskap_23808-gaskap_23808Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "Apple Distribution: Crowdbotics Corporation (6YKR59QXKM)";
@@ -909,7 +902,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 09AF706F01A08611C56BED82 /* Pods-gaskap_23808Tests.release.xcconfig */;
+			baseConfigurationReference = D8F6EA9FA1BA808E3F527087 /* Pods-gaskap_23808-gaskap_23808Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "Apple Distribution: Crowdbotics Corporation (6YKR59QXKM)";
@@ -934,7 +927,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 367A6BF6786D8ED84CED572A /* Pods-gaskap_23808.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Crowdbotics Corporation (6YKR59QXKM)";
 				CODE_SIGN_STYLE = Manual;
@@ -965,7 +958,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7C47A149BE5291B60381FB86 /* Pods-gaskap_23808.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon";
 				CODE_SIGN_IDENTITY = "Apple Distribution: Crowdbotics Corporation (6YKR59QXKM)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1026,9 +1019,9 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				COPY_PHASE_STRIP = NO;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Crowdbotics Corporation (6YKR59QXKM)";
 				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6YKR59QXKM;
 				GCC_NO_COMMON_BLOCKS = YES;

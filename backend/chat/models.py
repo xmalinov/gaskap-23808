@@ -22,6 +22,7 @@ class Message(TimeStampedModel):
     class Meta:
         verbose_name = _("Message")
         verbose_name_plural = _("Messages")
+        ordering = ["-id"]
 
     def __str__(self):
         return self.content
@@ -35,6 +36,7 @@ class Thread(TimeStampedModel):
     class Meta:
         verbose_name = _("Thread")
         verbose_name_plural = _("Threads")
+        ordering = ["-id"]
 
     def __str__(self):
         return f"{self.pk}"

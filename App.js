@@ -5,6 +5,8 @@ import {Provider as ReduxProvider} from 'react-redux';
 import SplashScreen from './src/features/SplashScreen';
 import {store} from './src/store';
 import NavigatorProvider from './src/navigator/mainNavigator';
+import {NavigationContainer} from '@react-navigation/native';
+import Routes from './src/navigator/mainNavigator';
 import {setupHttpConfig} from './src/utils/http';
 import * as NavigationService from './src/navigator/NavigationService';
 
@@ -43,15 +45,10 @@ export default class App extends React.Component {
 
   renderApp = () => (
     <ReduxProvider store={store}>
-      <NavigatorProvider
-        style={styles.flex}
-        ref={(nav) => {
-          this.navigator = nav;
-        }}>
-        <View style={[styles.flex]}>
-          <SplashScreen />
-        </View>
-      </NavigatorProvider>
+      <NavigationContainer>
+        {/* <TabNavigator /> */}
+        <Routes />
+      </NavigationContainer>
     </ReduxProvider>
   );
 
