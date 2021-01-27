@@ -46,7 +46,9 @@ class ClassSerializer(serializers.ModelSerializer):
             "days",
             "students",
             "teacher",
+            "school",
         ]
+        read_only_fields = ["school"]
 
     def to_representation(self, instance):
         data = super().to_representation(instance)

@@ -47,21 +47,29 @@ class User(AbstractUser):
 
     @property
     def profile(self):
-        if self.user_type == User.USER_TYPE_SCHOOL:
+        if self.user_type == self.USER_TYPE_SCHOOL:
             return self.school
-        elif self.user_type == User.USER_TYPE_PARENT:
+        elif self.user_type == self.USER_TYPE_PARENT:
             return self.parent
-        elif self.user_type == User.USER_TYPE_TEACHER:
+        elif self.user_type == self.USER_TYPE_TEACHER:
             return self.teacher
         return self.student
 
     @property
+    def is_student(self):
+        return self.user_type == self.USER_TYPE_STUDENT
+
+    @property
+    def is_parent(self):
+        return self.user_type == self.USER_TYPE_PARENT
+
+    @property
     def is_teacher(self):
-        return self.user_type == "teacher"
+        return self.user_type == self.USER_TYPE_TEACHER
 
     @property
     def is_school(self):
-        return self.user_type == "school"
+        return self.user_type == self.USER_TYPE_SCHOOL
 
     def __str__(self):
         return self.name or self.email

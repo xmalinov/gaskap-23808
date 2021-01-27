@@ -15,7 +15,10 @@ class Class(TimeStampedModel):
         "users.Student", related_name="classes", blank=True
     )
     teacher = models.ForeignKey(
-        "users.Teacher", related_name="teacher", on_delete=models.PROTECT
+        "users.Teacher", related_name="assigned_class", on_delete=models.PROTECT
+    )
+    school = models.ForeignKey(
+        "users.School", related_name="classes", on_delete=models.PROTECT
     )
     days = models.ManyToManyField("home.WeekDay", related_name="classes")
 

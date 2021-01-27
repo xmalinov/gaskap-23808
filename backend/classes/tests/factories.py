@@ -3,7 +3,7 @@ from factory import Faker, post_generation
 
 from classes.models import Class, ClassVideo, ClassVideoComment
 from home.tests.factories import WeekDayFactory
-from users.tests.factories import UserFactory, TeacherFactory
+from users.tests.factories import UserFactory, TeacherFactory, SchoolFactory
 
 
 class ClassFactory(factory.django.DjangoModelFactory):
@@ -15,6 +15,7 @@ class ClassFactory(factory.django.DjangoModelFactory):
     start_time = "13:00"
     end_time = "14:00"
     teacher = factory.SubFactory(TeacherFactory)
+    school = factory.SubFactory(SchoolFactory)
 
 
 class ClassVideoFactory(factory.django.DjangoModelFactory):

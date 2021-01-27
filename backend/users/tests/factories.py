@@ -38,10 +38,7 @@ class SchoolFactory(factory.django.DjangoModelFactory):
         model = School
 
     user = factory.SubFactory(UserFactory)
-    number = get_random_string(length=8)
     about = "Factory About"
-    student_code = get_random_string(length=8)
-    teacher_code = get_random_string(length=8)
     color = "Blue"
 
 
@@ -50,7 +47,6 @@ class StudentFactory(factory.django.DjangoModelFactory):
         model = Student
 
     user = factory.SubFactory(UserFactory)
-    student_id = get_random_string(length=8)
     grade = "sophomore"
     school = factory.SubFactory(SchoolFactory)
 
