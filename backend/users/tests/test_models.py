@@ -21,6 +21,12 @@ class UserModelTestCase(TestCase):
     def test_profile(self):
         self.assertEqual(self.user.profile, self.student)
 
+    def test_active_users(self):
+        inactive_user = UserFactory(is_active=False)
+
+        self.assertIn(self.user, User.objects.active())
+        self.assertNotIn(inactive_user, User.objects.active())
+
 
 class ProfileModelTestCase(TestCase):
     def setUp(self):

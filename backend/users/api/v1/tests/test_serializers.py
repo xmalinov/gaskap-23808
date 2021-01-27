@@ -1,6 +1,6 @@
 from django.test import TestCase, RequestFactory
 
-from home.api.v1.serializers import (
+from users.api.v1.serializers import (
     SignupSerializer,
     StudentSerializer,
     TeacherSerializer,

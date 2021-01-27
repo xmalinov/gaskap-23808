@@ -29,8 +29,8 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     path("modules/", include("modules.urls")),
     path(
-        "api/v1/",
-        include(("home.api.v1.urls", "home"), namespace="home-v1"),
+        "api/v1/classes/",
+        include(("classes.api.v1.urls", "classes"), namespace="classes-v1"),
     ),
     path(
         "api/v1/users/",

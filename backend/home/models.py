@@ -1,8 +1,5 @@
 from django.db import models
-
-# Create your models here.
-
-from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 
 OPTIONAL = {
@@ -11,40 +8,30 @@ OPTIONAL = {
 }
 
 
-class CustomText(models.Model):
-    """
-    Boilerplate model to populate the index homepage to demonstrate that the app was
-    successfuly built. All references to it should be removed in order to remove this
-    app from the project.
-    """
+class WeekDay(models.Model):
+    DAY_MONDAY = "monday"
+    DAY_TUESDAY = "tuesday"
+    DAY_WEDNESDAY = "wednesday"
+    DAY_THURSDAY = "thursday"
+    DAY_FRIDAY = "friday"
+    DAY_SATURDAY = "saturday"
+    DAY_SUNDAY = "sunday"
 
-    title = models.CharField(max_length=150)
+    DAY_CHOICES = [
+        (DAY_MONDAY, "Monday"),
+        (DAY_TUESDAY, "Tuesday"),
+        (DAY_WEDNESDAY, "Wednesday"),
+        (DAY_THURSDAY, "Thursday"),
+        (DAY_FRIDAY, "Friday"),
+        (DAY_SATURDAY, "Saturday"),
+        (DAY_SUNDAY, "Sunday"),
+    ]
+
+    name = models.CharField(_("Day"), max_length=20, choices=DAY_CHOICES, unique=True)
+
+    class Meta:
+        verbose_name = _("Week Day")
+        verbose_name_plural = _("Week Days")
 
     def __str__(self):
-        return self.title
-
-    @property
-    def api(self):
-        return f"/api/v1/customtext/{self.id}/"
-
-    @property
-    def field(self):
-        return "title"
-
-
-class HomePage(models.Model):
-    """
-    Boilerplate model to populate the index homepage to demonstrate that the app was
-    successfuly built. All references to it should be removed in order to remove this
-    app from the project.
-    """
-
-    body = models.TextField()
-
-    @property
-    def api(self):
-        return f"/api/v1/homepage/{self.id}/"
-
-    @property
-    def field(self):
-        return "body"
+        return self.get_name_display()

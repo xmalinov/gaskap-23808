@@ -7,7 +7,7 @@ from django.utils.crypto import get_random_string
 
 from allauth.account.models import EmailAddress
 
-from users import models
+from users.models import School, Student, Parent, Teacher
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -35,36 +35,32 @@ class UserFactory(factory.django.DjangoModelFactory):
 
 class SchoolFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = models.School
+        model = School
 
     user = factory.SubFactory(UserFactory)
-    number = get_random_string(length=8)
     about = "Factory About"
-    student_code = get_random_string(length=8)
-    teacher_code = get_random_string(length=8)
     color = "Blue"
 
 
 class StudentFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = models.Student
+        model = Student
 
     user = factory.SubFactory(UserFactory)
-    student_id = get_random_string(length=8)
     grade = "sophomore"
     school = factory.SubFactory(SchoolFactory)
 
 
 class ParentFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = models.Parent
+        model = Parent
 
     user = factory.SubFactory(UserFactory)
 
 
 class TeacherFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = models.Teacher
+        model = Teacher
 
     user = factory.SubFactory(UserFactory)
     school = factory.SubFactory(SchoolFactory)
