@@ -70,6 +70,6 @@ class EmailConfirmation(GenericAPIView):
 
 class UsersListViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = UserSerializer
-    queryset = User.objects.all().distinct()
+    queryset = User.objects.all()
     filter_backends = [DjangoFilterBackend]
     filterset_class = UserFilter
