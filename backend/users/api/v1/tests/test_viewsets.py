@@ -22,7 +22,7 @@ from users.api.v1.tests.mocks import mock_send_confirmation
 class ProfileAPIViewTestCase(AuthenticatedAPITestCase):
     def setUp(self):
         super().setUp()
-        self.school = SchoolFactory.create()
+        self.school = SchoolFactory()
         self.student = StudentFactory(user=self.user, school=self.school)
 
     def test_update_student(self):
@@ -80,3 +80,22 @@ class EmailConfirmationViewsetTestCase(APITestCase):
         )
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+class UsersListViewSetTestCase(AuthenticatedAPITestCase):
+    def setUp(self):
+        super().setUp()
+        self.school_user = UserFactory(user_type="school")
+        self.school = SchoolFactory(user=self.school_user)
+
+    def test_get_users_list_without_school(self):
+        response = self.client.get(reverse("users-v1:users-list"))
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_get_users_list(self):
+        response = self.client.get(
+            reverse("users-v1:users-list"), {"school": self.school.id}
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)

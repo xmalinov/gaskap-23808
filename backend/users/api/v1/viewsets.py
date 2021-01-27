@@ -1,5 +1,6 @@
 from allauth.account.models import EmailAddress
-from rest_framework import status
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import status, viewsets
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 from rest_framework.generics import UpdateAPIView, GenericAPIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -11,8 +12,10 @@ from users.api.v1.serializers import (
     SchoolSerializer,
     StudentSerializer,
     TeacherSerializer,
+    UserSerializer,
 )
 from users.models import User
+from users.filters import UserFilter
 
 
 class ProfileAPIView(UpdateAPIView):
@@ -63,3 +66,10 @@ class EmailConfirmation(GenericAPIView):
         return Response(
             {"message": "Email confirmation sent"}, status=status.HTTP_200_OK
         )
+
+
+class UsersListViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = UserSerializer
+    queryset = User.objects.all().distinct()
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = UserFilter
