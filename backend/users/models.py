@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager as DjangoUserManager
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
@@ -6,8 +6,14 @@ from django.utils.crypto import get_random_string
 from django.utils.translation import ugettext_lazy as _
 from django_extensions.db.models import TimeStampedModel
 
+
 from home.models import OPTIONAL
 from home.utils import get_upload_path
+
+
+class UserManager(DjangoUserManager):
+    def active(self):
+        return self.filter(is_active=True)
 
 
 class User(AbstractUser):
@@ -41,6 +47,8 @@ class User(AbstractUser):
         choices=USER_TYPE_CHOICES,
         default=USER_TYPE_STUDENT,
     )
+
+    objects = UserManager()
 
     def get_absolute_url(self):
         return reverse("users:detail", kwargs={"username": self.username})

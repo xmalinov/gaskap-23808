@@ -119,7 +119,7 @@ class ClassViewSet(viewsets.ModelViewSet):
 
 class ClassStudentViewSet(NestedViewSetMixin, viewsets.ReadOnlyModelViewSet):
     serializer_class = UserSerializer
-    queryset = User.objects.filter(is_active=True)
+    queryset = User.objects.active()
 
     def get_queryset(self):
         qs = super().get_queryset()
