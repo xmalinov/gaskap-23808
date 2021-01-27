@@ -8,26 +8,13 @@ from rest_framework.test import APITestCase, APIClient
 from rest_framework.authtoken.models import Token
 
 from chat.tests.factories import ThreadFactory, MessageFactory
+from home.api.v1.tests.test_viewsets import AuthenticatedAPITestCase
 from users.tests.factories import UserFactory
 
 User = get_user_model()
 
 
-class AuthenticatedClientTestCase(APITestCase):
-    def setUp(self):
-        self.user = UserFactory(user_type=User.USER_TYPE_STUDENT)
-        self.user_pass = factory.Faker("password")
-        self.user.set_password(self.user_pass)
-        self.user.save()
-
-        self.client = APIClient()
-
-        self.token = Token.objects.create(user=self.user)
-
-        self.client.credentials(HTTP_AUTHORIZATION=f"Token {self.token.key}")
-
-
-class MessageAPIViewTestCase(AuthenticatedClientTestCase):
+class MessageAPIViewTestCase(AuthenticatedAPITestCase):
     def setUp(self):
         super().setUp()
         self.teacher_user = UserFactory(user_type=User.USER_TYPE_TEACHER)
