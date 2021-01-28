@@ -22,4 +22,4 @@ class UserFilter(FilterSet):
             | Q(parent__students__school__id=value)
             | Q(teacher__school__id=value)
             | Q(school__id=value)
-        )
+        ).distinct()

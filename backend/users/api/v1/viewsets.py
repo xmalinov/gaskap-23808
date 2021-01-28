@@ -15,7 +15,7 @@ from users.api.v1.serializers import (
     UserSerializer,
 )
 from users.models import User
-from users.filters import UserFilter
+from users.api.v1.filters import UserFilter
 
 
 class ProfileAPIView(UpdateAPIView):
