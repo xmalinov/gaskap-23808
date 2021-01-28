@@ -1,26 +1,23 @@
 from django.urls import path, include
 
-from rest_framework.routers import DefaultRouter
-from rest_framework_nested import routers
+from rest_framework_extensions.routers import ExtendedDefaultRouter
 
 from news.api.v1 import viewsets
 
-news_router = DefaultRouter()
-news_router.register("news", viewsets.NewsViewSet, basename="news")
+router = ExtendedDefaultRouter()
 
-news_comment_router = routers.NestedSimpleRouter(news_router, r"news", lookup="news")
+news_router = router.register(r"", viewsets.NewsViewSet, basename="news")
 
-news_comment_router.register(
-    r"news-comments", viewsets.NewsCommentViewSet, basename="news-comments"
+news_comment_router = news_router.register(
+    r"comments",
+    viewsets.NewsCommentViewSet,
+    basename="news-comments",
+    parents_query_lookups=["news"],
 )
 
 urlpatterns = [
     path(
         "",
-        include(news_router.urls),
-    ),
-    path(
-        "",
-        include(news_comment_router.urls),
+        include(router.urls),
     ),
 ]

@@ -3,14 +3,14 @@ from factory import post_generation
 from faker import Factory
 
 from users.tests.factories import UserFactory
-from news import models
+from news.models import News, NewsComment
 
 faker = Factory.create()
 
 
 class NewsFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = models.News
+        model = News
 
     author = factory.SubFactory(UserFactory)
     headline = faker.text()
@@ -19,7 +19,7 @@ class NewsFactory(factory.django.DjangoModelFactory):
 
 class NewsCommentFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = models.NewsComment
+        model = NewsComment
 
     author = factory.SubFactory(UserFactory)
     news = factory.SubFactory(NewsFactory)

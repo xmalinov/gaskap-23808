@@ -46,7 +46,7 @@ urlpatterns = [
         include(("chat.api.v1.urls", "chat"), namespace="chat-v1"),
     ),
     path(
-        "api/v1/",
+        "api/v1/news/",
         include(("news.api.v1.urls", "news"), namespace="news-v1"),
     ),
 ]

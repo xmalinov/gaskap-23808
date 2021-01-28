@@ -9,9 +9,12 @@ class News(TimeStampedModel):
         "users.User",
         verbose_name=_("Author"),
         related_name="news",
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
     )
     headline = models.CharField(_("Headline"), max_length=250)
+    school = models.ForeignKey(
+        "users.School", related_name="news", on_delete=models.PROTECT
+    )
     description = models.TextField(_("Description"))
 
     class Meta:
@@ -26,13 +29,16 @@ class News(TimeStampedModel):
 class NewsComment(TimeStampedModel):
 
     author = models.ForeignKey(
-        "users.User", verbose_name=_("Author"), on_delete=models.CASCADE
+        "users.User",
+        verbose_name=_("Author"),
+        related_name="news_comment",
+        on_delete=models.PROTECT,
     )
 
     news = models.ForeignKey(
         "news.News",
         verbose_name=_("news"),
-        related_name="comments",
+        related_name="news_comments",
         on_delete=models.CASCADE,
     )
 

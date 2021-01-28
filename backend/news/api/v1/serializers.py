@@ -5,8 +5,8 @@ from news.models import News, NewsComment
 class NewsSerializer(serializers.ModelSerializer):
     class Meta:
         model = News
-        fields = ("id", "author", "headline", "description")
-        read_only_fields = ("author",)
+        fields = ("id", "author", "school", "headline", "description")
+        read_only_fields = ("author", "school")
 
 
 class NewsCommentSerializer(serializers.ModelSerializer):
