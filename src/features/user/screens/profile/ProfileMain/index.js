@@ -48,7 +48,16 @@ class Profile extends Component {
             },
             response => {
               console.log(response);
+              const formdata = new FormData();
+              formdata.append('profile_picture', {
+                uri: response.uri,
+                name: response.fileName,
+                type: 'image/jpeg',
+              });
+              console.log(response);
               // setResponse(response);
+              this.setState({isSheetVisible: false});
+              this.props.uploadPhoto(formdata);
             },
           ),
       },
@@ -75,6 +84,7 @@ class Profile extends Component {
               });
               console.log(response);
               // setResponse(response);
+              this.setState({isSheetVisible: false});
               this.props.uploadPhoto(formdata);
             },
           );

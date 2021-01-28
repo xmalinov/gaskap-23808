@@ -136,11 +136,12 @@ function* setUserNameWatcher() {
 
 function* deactivateAccountWorker(action) {
   try {
-    // const result = yield call(authApiService.deactivateAccount, action);
+    const result = yield call(authApiService.deactivateAccount, action);
     // console.log(result.data);
     yield put(actions.logout(action));
+    // yield put(actions.logoutSucceeded({}));
     // yield put(actions.deactivateAccountSucceeded(result.data));
-    yield put(actions.deactivateAccountSucceeded({}));
+    // yield put(actions.deactivateAccountSucceeded({}));
   } catch (err) {
     const errorMessage = generalUtils.parseErrorMessage(err);
     const message = Array.isArray(errorMessage)

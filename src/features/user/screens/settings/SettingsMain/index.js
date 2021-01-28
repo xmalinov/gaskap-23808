@@ -7,10 +7,8 @@ import Dialog from 'react-native-dialog';
 import {styles} from './styles';
 import * as actions from '../../../../../store/auth/constants';
 import * as customActions from '../../../../../store/custom/constants';
-import ScreenConstants from '../../../../../constants/screenConstants';
 import {settingItems} from '../../../../../constants/generalConstants';
 import SimpleToast from 'react-native-simple-toast';
-import {ActivityIndicator} from 'react-native';
 import {Loader} from '../../../../../components/Loader';
 import {authMessage, general_message} from '../../../../../constants/message';
 
@@ -28,7 +26,7 @@ class Settings extends Component {
       {
         title: settingItems.logout,
         iconName: 'user',
-        value: this.props.user.profile.city,
+        // value: this.props.user.profile.city,
       },
     ],
 
@@ -132,7 +130,8 @@ class Settings extends Component {
 
   handleDeactivateAccount = () => {
     this.setState({showDeactivateAccount: false}, () => {
-      this.props.updateUser({is_active: false});
+      // this.props.updateUser({is_active: false});
+      this.props.deactivateAccount({is_active: false});
     });
   };
 
@@ -207,7 +206,7 @@ class Settings extends Component {
   changePhoneDialog = () => {
     return (
       <View>
-        <Dialog.Container visible={this.state.showChangePhoneuserUpdateFailed}>
+        <Dialog.Container visible={this.state.showChangePhone}>
           <Dialog.Title>{settingItems.changePhone}</Dialog.Title>
           <Dialog.Description>
             Make sure you enter valid phone number.
@@ -233,11 +232,7 @@ class Settings extends Component {
   deactivateDialog = () => {
     return (
       <View>
-        <Dialog.Container
-          visible={
-            this.state.showDeactivateAccount || this.props.deactivationFailed
-          }
-        >
+        <Dialog.Container visible={this.state.showDeactivateAccount}>
           <Dialog.Title>{settingItems.deactivateAccount}</Dialog.Title>
           <Dialog.Description>
             Are you sure you want to deactivate account?

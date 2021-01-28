@@ -1,14 +1,14 @@
-import React, {Component} from 'react';
-import {View, Text, ScrollView} from 'react-native';
-import {connect} from 'react-redux';
-import {Avatar, ListItem, Icon} from 'react-native-elements';
+import React, { Component } from 'react';
+import { View, Text, ScrollView } from 'react-native';
+import { connect } from 'react-redux';
+import { Avatar, ListItem, Icon } from 'react-native-elements';
 import Dialog from 'react-native-dialog';
 import * as customActions from '../../../../../store/custom/constants';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {format, compareAsc} from 'date-fns';
+import { format, compareAsc } from 'date-fns';
 import _ from 'lodash';
 
-import {styles} from './styles';
+import { styles } from './styles';
 import {
   grades,
   keys,
@@ -17,7 +17,7 @@ import {
   userTypes,
 } from '../../../../../constants/generalConstants';
 import Picker from '../../../../../components/Picker';
-import {Loader} from '../../../../../components/Loader';
+import { Loader } from '../../../../../components/Loader';
 
 const classLisItems = [
   {
@@ -109,19 +109,19 @@ class ProfileUpdate extends Component {
   };
 
   handleUpdateConfirm = item => {
-    this.setState({showDialog: false}, () => {
+    this.setState({ showDialog: false }, () => {
       let params = {};
 
       switch (item.title) {
         case profileItems.age:
           const date = format(this.state.dob, keys.date_format);
-          params = {date_of_birth: date};
+          params = { date_of_birth: date };
           break;
         case profileItems.city:
-          params = {city: this.state.city};
+          params = { city: this.state.city };
           break;
         case profileItems.state:
-          params = {state: this.state.state};
+          params = { state: this.state.state };
           break;
         default:
           break;
@@ -134,13 +134,13 @@ class ProfileUpdate extends Component {
   handleTextChange = (value, item) => {
     switch (item.title) {
       case profileItems.age:
-        this.setState({dob: value});
+        this.setState({ dob: value });
         break;
       case profileItems.city:
-        this.setState({city: value});
+        this.setState({ city: value });
         break;
       case profileItems.state:
-        this.setState({state: value});
+        this.setState({ state: value });
         break;
       default:
         break;
@@ -149,27 +149,30 @@ class ProfileUpdate extends Component {
 
   getPlaceHolder = item => {
     let placeholder = '';
-    const {profile} = this.props;
+    const { profile } = this.props;
     const userType = profile.user_type;
 
-    let student = profile.profile;
+    let user = profile.profile;
     let school = profile.profile.school;
 
     if (userType === userTypes.parent.toLowerCase()) {
-      student = profile.profile.students[0];
-      school = student.school;
+      user = profile.profile.students[0];
+      school = user.school;
     }
 
-    if (profile && !_.isEmpty(student)) {
+    if (profile && !_.isEmpty(user)) {
       switch (item.title) {
         case profileItems.studentId:
-          placeholder = student.student_id;
+          placeholder = user.student_id;
           break;
         case profileItems.studentName:
-          placeholder = student.student_name;
+          placeholder = user.student_name;
           break;
         case profileItems.schoolId:
           placeholder = school.number;
+          break;
+        case profileItems.subject:
+          placeholder = user.subject;
           break;
         case profileItems.age:
           placeholder = profile.profile.date_of_birth;
@@ -190,8 +193,8 @@ class ProfileUpdate extends Component {
     return placeholder;
   };
 
-  handleGradeChange = ({value}) => {
-    this.props.updateProfile({grade: value});
+  handleGradeChange = ({ value }) => {
+    this.props.updateProfile({ grade: value });
   };
 
   getInputView = item => {
@@ -226,7 +229,7 @@ class ProfileUpdate extends Component {
           <Dialog.Description>{`New ${item.title}`}</Dialog.Description>
           {this.getInputView(item)}
           <Dialog.Button
-            onPress={() => this.setState({showDialog: false})}
+            onPress={() => this.setState({ showDialog: false })}
             label="Cancel"
           />
           <Dialog.Button
@@ -243,7 +246,7 @@ class ProfileUpdate extends Component {
 
     if (item.title === profileItems.grade && item.isEditable) {
       return (
-        <View style={{width: '60%'}}>
+        <View style={{ width: '60%' }}>
           <Picker
             defaultValue={profile.profile.grade}
             placeHolder="Select grade"
@@ -255,7 +258,7 @@ class ProfileUpdate extends Component {
     } else {
       return (
         <>
-          <Text style={{paddingRight: 16}}>{this.getPlaceHolder(item)}</Text>
+          <Text style={{ paddingRight: 16 }}>{this.getPlaceHolder(item)}</Text>
           {item.isEditable && (
             <Icon
               // raised
@@ -263,7 +266,7 @@ class ProfileUpdate extends Component {
               name="edit"
               type="font-awesome-5"
               // color='#f50'
-              onPress={() => this.setState({showDialog: true})}
+              onPress={() => this.setState({ showDialog: true })}
             />
           )}
         </>
@@ -273,7 +276,7 @@ class ProfileUpdate extends Component {
 
   onDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || this.state.dob;
-    this.setState({dob: currentDate});
+    this.setState({ dob: currentDate });
   };
 
   getDetailView = item => {
@@ -306,7 +309,7 @@ class ProfileUpdate extends Component {
         <ListItem bottomDivider>
           <Avatar
             rounded
-            icon={{name: item.iconName, type: 'font-awesome-5', color: 'black'}}
+            icon={{ name: item.iconName, type: 'font-awesome-5', color: 'black' }}
             containerStyle={styles.itemIcon}
           />
           <ListItem.Content>
@@ -321,8 +324,8 @@ class ProfileUpdate extends Component {
   };
 
   render() {
-    const {item} = this.props.route.params;
-    const {isMakingNetworkRequest} = this.props;
+    const { item } = this.props.route.params;
+    const { isMakingNetworkRequest } = this.props;
 
     if (isMakingNetworkRequest) {
       return <Loader size="large" />;
@@ -344,7 +347,7 @@ const mapStateToProps = state => {
   };
 };
 const mapDispToProps = dispatch => ({
-  updateProfile: obj => dispatch({type: customActions.UPDATE_PROFILE, obj}),
+  updateProfile: obj => dispatch({ type: customActions.UPDATE_PROFILE, obj }),
 });
 
 export default connect(

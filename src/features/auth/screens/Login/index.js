@@ -30,13 +30,13 @@ class Login extends Component {
   };
 
   componentDidUpdate() {
-    if (this.props.loginSuccess) {
-      setTimeout(() => {
-        this.props.navigation.navigate(ScreenConstants.home, {
-          screen: ScreenConstants.home,
-        });
-      }, 500);
-    }
+    // if (this.props.loginSuccess) {
+    //   setTimeout(() => {
+    //     this.props.navigation.navigate(ScreenConstants.home, {
+    //       screen: ScreenConstants.home,
+    //     });
+    //   }, 500);
+    // }
   }
 
   handleEmailChange = value => {

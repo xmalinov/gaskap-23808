@@ -85,8 +85,7 @@ function ChatTabScreen() {
       initialRouteName={ScreenConstants.chat}
       tabBarOptions={{
         activeTintColor: '#F06931',
-      }}
-    >
+      }}>
       <ChatTab.Screen
         name={ScreenConstants.chat}
         component={ChatStackScreen}
@@ -194,8 +193,7 @@ const RightView = ({navigation}) => {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-      }}
-    >
+      }}>
       <IconElement
         name="comment-dots"
         type="font-awesome-5"
@@ -257,8 +255,7 @@ function HomeStackScreen() {
         headerRight: () => <RightView navigation={navigation} />,
         headerLeft: () => <LeftView navigation={navigation} />,
       })}
-      initialRouteName={ScreenConstants.home}
-    >
+      initialRouteName={ScreenConstants.home}>
       <HomeStack.Screen name={ScreenConstants.home} component={HomeScreen} />
       <HomeStack.Screen name="Details" component={DetailsScreen} />
     </HomeStack.Navigator>
@@ -336,11 +333,10 @@ const Tab = createBottomTabNavigator();
 const TabNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName={"Main"}
+      initialRouteName={'Main'}
       tabBarOptions={{
         activeTintColor: '#F06931',
-      }}
-    >
+      }}>
       <Tab.Screen
         name={ScreenConstants.home}
         component={HomeStackScreen}
@@ -401,8 +397,7 @@ const AuthNavigation = () => {
   return (
     <AuthStack.Navigator
       initialRouteName={ScreenConstants.login}
-      headerMode="none"
-    >
+      headerMode="none">
       <AuthStack.Screen name={ScreenConstants.login} component={LoginScreen} />
       <AuthStack.Screen
         name={ScreenConstants.signUp}
@@ -428,53 +423,47 @@ const AuthNavigation = () => {
 
 const RootStack = createStackNavigator();
 
-function RootStackScreen() {
-  return (
-    <RootStack.Navigator headerMode="none">
-      <RootStack.Screen
-        name="Main"
-        component={TabNavigator}
-        options={{headerShown: false}}
-      />
-      <RootStack.Screen name={ScreenConstants.chat} component={ChatTabScreen} />
-      <RootStack.Screen
-        name={ScreenConstants.search}
-        component={SearchStackScreen}
-      />
-      <RootStack.Screen
-        name={ScreenConstants.profile}
-        component={ProfileStackScreen}
-      />
-      <RootStack.Screen
-        name={ScreenConstants.setting}
-        component={SettingStackScreen}
-      />
-    </RootStack.Navigator>
-  );
-}
+function RootStackScreen(props) {
+  let isAuthorized = false;
 
-const Routes = props => {
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  if (props.auth) {
+    if (props.profile.is_active) {
+      isAuthorized = true;
+    } else if (props.user.is_active) {
+      isAuthorized = true;
+    }
+  }
 
-  // useEffect(() => {
-  //   checkLoggedIn();
-  // }, [checkLoggedIn, props, props.auth]);
-
-  // const checkLoggedIn = async () => {
-  //   if (props.auth) {
-  //     setIsLoggedIn(true);
-  //   } else {
-  //     setIsLoggedIn(false);
-  //   }
-  // };
-  console.log(props.auth);
-
-  return props.auth && (props.user.is_active || props.profile.is_active) ? (
-    <RootStackScreen />
-  ) : (
-      <AuthNavigation />
+  if (isAuthorized) {
+    return (
+      <RootStack.Navigator headerMode="none">
+        <RootStack.Screen
+          name="Main"
+          component={TabNavigator}
+          options={{headerShown: false}}
+        />
+        <RootStack.Screen
+          name={ScreenConstants.chat}
+          component={ChatTabScreen}
+        />
+        <RootStack.Screen
+          name={ScreenConstants.search}
+          component={SearchStackScreen}
+        />
+        <RootStack.Screen
+          name={ScreenConstants.profile}
+          component={ProfileStackScreen}
+        />
+        <RootStack.Screen
+          name={ScreenConstants.setting}
+          component={SettingStackScreen}
+        />
+      </RootStack.Navigator>
     );
-};
+  } else {
+    return <AuthNavigation />;
+  }
+}
 
 const mapStateToProps = state => {
   return {
@@ -484,4 +473,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Routes);
+export default connect(mapStateToProps)(RootStackScreen);

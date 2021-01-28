@@ -1,4 +1,4 @@
-import {first} from 'lodash';
+import { first } from 'lodash';
 
 export const request_methods = {
   post: 'POST',
@@ -45,6 +45,7 @@ export const profileItems = {
   studentId: 'Student ID',
   studentName: 'Student Name',
   schoolId: 'School ID#',
+  subject: 'Subject',
   grade: 'Grade',
   age: 'Date of Birth',
   city: 'City',
@@ -108,26 +109,6 @@ export const profileListItems = {
   ],
   teacher: [
     {
-      title: profileItems.studentId,
-      iconName: 'user',
-      isEditable: false,
-    },
-    {
-      title: profileItems.schoolId,
-      iconName: 'school',
-      isEditable: false,
-    },
-    {
-      title: profileItems.grade,
-      iconName: 'user',
-      isEditable: true,
-    },
-    {
-      title: profileItems.age,
-      iconName: 'user',
-      isEditable: true,
-    },
-    {
       title: profileItems.city,
       iconName: 'home',
       isEditable: true,
@@ -138,9 +119,19 @@ export const profileListItems = {
       isEditable: true,
     },
     {
-      title: profileItems.classAssigned,
+      title: profileItems.schoolId,
       iconName: 'book-open',
       isEditable: false,
+    },
+    {
+      title: profileItems.subject,
+      iconName: 'book-open',
+      isEditable: false,
+    },
+    {
+      title: profileItems.age,
+      iconName: 'user',
+      isEditable: true,
     },
   ],
   parent: [
