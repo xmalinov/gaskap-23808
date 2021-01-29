@@ -265,7 +265,7 @@ const handlers = {
   [types.UPDATE_PROFILE_PHOTO_FAILED]: updateProfilePhotoFailed,
 };
 
-export default function authReducer(state = initialState, action) {
+export default function customReducer(state = initialState, action) {
   const handler = handlers[action.type];
 
   if (typeof handler === 'undefined') {

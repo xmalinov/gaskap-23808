@@ -41,7 +41,9 @@ generalUtils.parseErrorMessage = err => {
   const errorKey = Object.keys(err)[0];
   const errorMessage = Array.isArray(err) ? err[errorKey][0] : err[errorKey];
 
-  return errorMessage || general_message.something_wrong;
+  return typeof errorMessage === 'string'
+    ? errorMessage
+    : general_message.something_wrong;
 };
 
 generalUtils.isValidEmail = mail => {

@@ -1,19 +1,5 @@
 import * as types from "./constants"
 
-/* Example get balance actions
-export const getBalance = id => ({
-  type: types.GET_BALANCE, id
-})
-
-export const getBalanceSucceeded = response => ({
-  type: types.GET_BALANCE_SUCCEEDED, response
-})
-
-export const getBalanceFailed = error => ({
-  type: types.GET_BALANCE_FAILED, error
-})
- */
-
 //Example get balance actions
 export const setEmail = email => ({
   type: types.SET_EMAIL,
@@ -109,5 +95,20 @@ export const logoutSucceeded = response => ({
 
 export const logoutFailed = error => ({
   type: types.LOG_OUT_FAILED,
+  payload: error,
+});
+
+export const forgetPassword = params => ({
+  type: types.FORGET_PASSWORD,
+  payload: params,
+});
+
+export const forgetPasswordSucceeded = response => ({
+  type: types.FORGET_PASSWORD_SUCCEEDED,
+  payload: response,
+});
+
+export const forgetPasswordFailed = error => ({
+  type: types.FORGET_PASSWORD_FAILED,
   payload: error,
 });

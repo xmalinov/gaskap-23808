@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, ScrollView} from 'react-native';
 import {connect} from 'react-redux';
 import {Avatar, ListItem, Icon, SearchBar} from 'react-native-elements';
+import * as chatActions from './../../store/chat/constants'
 
 import {styles} from './styles';
 import {SafeAreaView} from 'react-native';
@@ -33,7 +34,7 @@ const userLists = [
   },
 ];
 
-class Events extends Component {
+class ChatScreen extends Component {
   state = {
     selectedIndex: 0,
     searchTerm: '',
@@ -91,20 +92,22 @@ class Events extends Component {
             inputContainerStyle={styles.searchInput}
           />
         </View>
-        <ScrollView>
-          {this.getList(userLists)}
-        </ScrollView>
-      </SafeAreaView >
+        <ScrollView>{this.getList(userLists)}</ScrollView>
+      </SafeAreaView>
     );
   }
 }
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    users: state.chatReducer.users,
+  };
 };
-const mapDispToProps = dispatch => ({});
+const mapDispToProps = dispatch => ({
+  getAllUsers: obj => dispatch({type: chatActions.GET_USERS, obj}),
+});
 
 export default connect(
   mapStateToProps,
   mapDispToProps,
-)(Events);
+)(ChatScreen);

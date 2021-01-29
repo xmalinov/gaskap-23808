@@ -22,6 +22,7 @@ const initialState = {
   registrationSuccess: false,
   deactivationFailed: false,
   isMakingNetworkRequest: false,
+  passwordResetSuccess: false,
 };
 
 const loginStarted = (state, action) => {
@@ -137,7 +138,7 @@ const deactiveateAccountStarted = (state, action) => {
   return {
     ...state,
     isMakingNetworkRequest: true,
-    settingsError: '',
+    loginError: '',
     deactivationFailed: false,
   };
 };
@@ -147,7 +148,7 @@ const deactiveateAccountSuccess = (state, action) => {
   return {
     ...state,
     isMakingNetworkRequest: false,
-    settingsError: '',
+    loginError: '',
     deactivationFailed: false,
   };
 };
@@ -157,7 +158,7 @@ const deactiveateAccountFailed = (state, action) => {
   return {
     ...state,
     isMakingNetworkRequest: false,
-    settingsError: 'Unable to deactivate account',
+    loginError: 'Unable to deactivate account',
     deactivationFailed: true,
   };
 };
@@ -167,7 +168,7 @@ const logoutStarted = (state, action) => {
   return {
     ...state,
     isMakingNetworkRequest: true,
-    settingsError: '',
+    loginError: '',
   };
 };
 
@@ -176,7 +177,7 @@ const logoutSuccess = (state, action) => {
   return {
     ...state,
     isMakingNetworkRequest: false,
-    settingsError: '',
+    loginError: '',
     auth: false,
   };
 };
@@ -186,7 +187,38 @@ const logoutFailed = (state, action) => {
   return {
     ...state,
     isMakingNetworkRequest: false,
-    settingsError: 'Unable to logout',
+    loginError: 'Unable to logout',
+  };
+};
+
+const forgetPasswordStarted = (state, action) => {
+  console.log('started');
+  return {
+    ...state,
+    isMakingNetworkRequest: true,
+    passwordResetSuccess: false,
+    loginError: '',
+  };
+};
+
+const forgetPasswordSuccess = (state, action) => {
+  console.log('success', action);
+  return {
+    ...state,
+    isMakingNetworkRequest: false,
+    passwordResetSuccess: true,
+    loginError: '',
+    auth: false,
+  };
+};
+
+const forgetPasswordFailed = (state, action) => {
+  console.log('failed');
+  return {
+    ...state,
+    isMakingNetworkRequest: false,
+    passwordResetSuccess: false,
+    loginError: 'Unable to send a link.',
   };
 };
 
@@ -214,6 +246,10 @@ const handlers = {
   [types.LOG_OUT]: logoutStarted,
   [types.LOG_OUT_SUCCEEDED]: logoutSuccess,
   [types.LOG_OUT_FAILED]: logoutFailed,
+
+  [types.FORGET_PASSWORD]: forgetPasswordStarted,
+  [types.FORGET_PASSWORD_SUCCEEDED]: forgetPasswordSuccess,
+  [types.FORGET_PASSWORD_FAILED]: forgetPasswordFailed,
 };
 
 export default function authReducer(state = initialState, action) {

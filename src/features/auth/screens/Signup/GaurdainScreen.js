@@ -10,6 +10,7 @@ import AuthFooter from '../../../../components/AuthFooter';
 
 import {connect} from 'react-redux';
 import * as authActions from '../../../../store/auth/constants';
+import {KeyboardAvoidingView} from 'react-native';
 
 class GaurdainScreen extends Component {
   state = {
@@ -35,7 +36,7 @@ class GaurdainScreen extends Component {
   render() {
     return (
       <View style={styles.wrapper}>
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container}>
           <View style={styles.itemsContainer}>
             <Text style={styles.confirmationTitle}>
               Enter Parent or Guardian Name
@@ -60,7 +61,7 @@ class GaurdainScreen extends Component {
             // isLoading={true}
             />
           </View>
-        </View>
+        </KeyboardAvoidingView>
         <AuthFooter
           secondaryText={'Sign In.'}
           handleSignin={this.handleSignin}

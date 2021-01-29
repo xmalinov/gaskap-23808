@@ -1,4 +1,4 @@
-import { first } from 'lodash';
+import {first} from 'lodash';
 
 export const request_methods = {
   post: 'POST',
@@ -10,6 +10,7 @@ export const request_methods = {
 export const end_points = {
   login: '/api/v1/auth/login/',
   signup: '/api/v1/auth/registration/',
+  forgetPassword: '/api/v1/auth/password/reset/',
   allSchools: '/api/v1/schools/',
   profile: '/api/v1/auth/user/',
   changePassword: '/api/v1/auth/password/change/',
@@ -20,6 +21,8 @@ export const end_points = {
   deactivateAccount: '/api/v1/auth/logout/',
   logout: '/api/v1/auth/logout/',
   sendConfirmationEmail: '/auth/email-confirmation/send/',
+
+  allUsers: '/users',
 };
 
 export const userTypes = {

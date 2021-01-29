@@ -12,6 +12,7 @@ import SimpleToast from 'react-native-simple-toast';
 import {authMessage} from '../../../../constants/message';
 import {Input, Button} from 'react-native-elements';
 import {userTypes} from '../../../../constants/generalConstants';
+import {KeyboardAvoidingView} from 'react-native';
 
 const userList = [
   {
@@ -32,20 +33,22 @@ const placeHolderText = {
   Teacher: 'Enter teacher code',
   Parent: 'Enter student id',
   Student: 'Enter student code',
-}
+};
 
 class Signup extends Component {
   state = {
     school: '',
     schools: [],
-    selectedValue: 'java'
+    selectedValue: 'java',
   };
 
   handleNext = () => {
     if (this.props.userType != '' && this.props.code != '') {
       this.props.navigation.navigate(ScreenConstants.email);
     } else {
-      const message = this.props.userType ? authMessage.noCode : authMessage.noUserType
+      const message = this.props.userType
+        ? authMessage.noCode
+        : authMessage.noUserType;
 
       SimpleToast.show(message);
     }
@@ -69,7 +72,6 @@ class Signup extends Component {
 
   componentDidMount() {
     // const formattedSchools = this.getFormattedSchool();
-
     // this.setState({schools: formattedSchools});
   }
 
@@ -86,7 +88,7 @@ class Signup extends Component {
 
     return (
       <View style={styles.wrapper}>
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container}>
           <View style={styles.itemsContainer}>
             <Text style={styles.titleText}>Select User</Text>
             <Picker
@@ -101,10 +103,9 @@ class Signup extends Component {
                 // this.props.addSchool({selectedSchool: item})
               }
             />
-            {
-              userType != '' &&
+            {userType !== '' && (
               <Input
-                autoCapitalize='none'
+                autoCapitalize="none"
                 autoCorrect={false}
                 value={this.props.code}
                 onChangeText={this.handleCodeChange}
@@ -115,7 +116,7 @@ class Signup extends Component {
                 errorStyle={styles.errorStyle}
                 containerStyle={{paddingHorizontal: 0}}
               />
-            }
+            )}
 
             <GradientButton
               title="Next"
@@ -123,11 +124,13 @@ class Signup extends Component {
             // isLoading={true}
             />
           </View>
+        </KeyboardAvoidingView>
+        <View style={{flex: 1, backgroundColor: 'red'}}>
+          <AuthFooter
+            secondaryText={'Sign In.'}
+            handleSignin={this.handleSignin}
+          />
         </View>
-        <AuthFooter
-          secondaryText={'Sign In.'}
-          handleSignin={this.handleSignin}
-        />
       </View>
     );
   }

@@ -5,6 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import LoginScreen from '../features/auth/screens/Login';
+import ForgetPasswordScreen from '../features/auth/screens/ForgetPassword';
 import SignupScreen from '../features/auth/screens/Signup';
 import EmailScreen from './../features/auth/screens/Signup/EmailScreen';
 import GaurdainScreen from './../features/auth/screens/Signup/GaurdainScreen';
@@ -397,8 +398,17 @@ const AuthNavigation = () => {
   return (
     <AuthStack.Navigator
       initialRouteName={ScreenConstants.login}
-      headerMode="none">
-      <AuthStack.Screen name={ScreenConstants.login} component={LoginScreen} />
+    // headerMode="none"
+    >
+      <AuthStack.Screen
+        options={{headerShown: false}}
+        name={ScreenConstants.login}
+        component={LoginScreen}
+      />
+      <AuthStack.Screen
+        name={ScreenConstants.forgetPassword}
+        component={ForgetPasswordScreen}
+      />
       <AuthStack.Screen
         name={ScreenConstants.signUp}
         component={SignupScreen}

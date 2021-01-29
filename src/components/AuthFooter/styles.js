@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   itemFooterWrapper: {
+    height: 40,
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',

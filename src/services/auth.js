@@ -1,5 +1,5 @@
-import { end_points, request_methods } from '../constants/generalConstants';
-import { requestToServer } from '../utils/http';
+import {end_points, request_methods} from '../constants/generalConstants';
+import {requestToServer} from '../utils/http';
 
 const signup = action => {
   const url = end_points.signup;
@@ -33,7 +33,7 @@ const deactivateAccount = action => {
   };
 
   return requestToServer(info);
-}
+};
 
 const logout = action => {
   const url = end_points.logout;
@@ -44,12 +44,23 @@ const logout = action => {
   };
 
   return requestToServer(info);
-}
+};
 
+const forgetPassword = action => {
+  const url = end_points.forgetPassword;
+  const info = {
+    url,
+    method: request_methods.post,
+    params: action.obj,
+  };
+
+  return requestToServer(info);
+};
 
 export const authApiService = {
   signup,
   login,
   logout,
-  deactivateAccount
+  deactivateAccount,
+  forgetPassword,
 };

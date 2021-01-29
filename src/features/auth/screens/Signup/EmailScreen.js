@@ -11,6 +11,7 @@ import * as authActions from '../../../../store/auth/constants';
 import SimpleToast from 'react-native-simple-toast';
 import {authMessage} from '../../../../constants/message';
 import generalUtils from '../../../../utils/gneralUtils';
+import {KeyboardAvoidingView} from 'react-native';
 
 class EmailScreen extends Component {
   state = {
@@ -33,14 +34,21 @@ class EmailScreen extends Component {
     this.props.addEmail({email: value});
   };
 
+  handleSignin = () => {
+    this.props.navigation.reset({
+      index: 0,
+      routes: [{name: ScreenConstants.login}],
+    });
+  };
+
   render() {
     return (
       <View style={styles.wrapper}>
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container}>
           <View style={styles.itemsContainer}>
             <Text style={styles.titleText}>Enter Email</Text>
             <Input
-              autoCapitalize='none'
+              autoCapitalize="none"
               autoCorrect={false}
               value={this.props.email}
               onChangeText={this.handleEmailChange}
@@ -57,7 +65,7 @@ class EmailScreen extends Component {
             // isLoading={true}
             />
           </View>
-        </View>
+        </KeyboardAvoidingView>
         <AuthFooter
           secondaryText={'Sign In.'}
           handleSignin={this.handleSignin}
@@ -69,7 +77,7 @@ class EmailScreen extends Component {
 
 const mapStateToProps = state => {
   return {
-    email: state.authReducer.email
+    email: state.authReducer.email,
   };
 };
 const mapDispToProps = dispatch => ({

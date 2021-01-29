@@ -6,6 +6,7 @@ import GradientButton from '../../../../components/GradientButton';
 import {Input} from 'react-native-elements';
 import ScreenConstants from '../../../../constants/screenConstants';
 import AuthFooter from '../../../../components/AuthFooter';
+import {KeyboardAvoidingView} from 'react-native';
 
 export default class ConfirmationCodeScreen extends Component {
   state = {
@@ -35,7 +36,7 @@ export default class ConfirmationCodeScreen extends Component {
   render() {
     return (
       <View style={styles.wrapper}>
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container}>
           <View style={styles.itemsContainer}>
             <Text style={styles.confirmationTitle}>
               Enter Confirmation Code
@@ -66,7 +67,7 @@ export default class ConfirmationCodeScreen extends Component {
             // isLoading={true}
             />
           </View>
-        </View>
+        </KeyboardAvoidingView>
         <AuthFooter
           secondaryText={'Sign In.'}
           handleSignin={this.handleSignin}

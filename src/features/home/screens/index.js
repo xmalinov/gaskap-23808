@@ -16,7 +16,11 @@ class HomeScreen extends Component {
   render() {
     return (
       <View style={styles.wrapper}>
-        <View style={[styles.container, {alignItems: 'center', justifyContent: 'center'}]}>
+        <View
+          style={[
+            styles.container,
+            {alignItems: 'center', justifyContent: 'center'},
+          ]}>
           <Text>Home screen</Text>
         </View>
       </View>
@@ -26,7 +30,7 @@ class HomeScreen extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.customReducer.profile
+    user: state.customReducer.profile,
   };
 };
 const mapDispToProps = dispatch => ({

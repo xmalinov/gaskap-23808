@@ -1,7 +1,7 @@
-import { combinedReducers } from "./mainReducer";
-import { createStore, applyMiddleware, compose } from "redux";
-import createSagaMiddleware from "redux-saga";
-import { mainSaga } from "./mainSaga";
+import {combinedReducers} from './mainReducer';
+import {createStore, applyMiddleware, compose} from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import {mainSaga} from './mainSaga';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -14,9 +14,9 @@ const middlewares = [sagaMiddleware /** more middlewares if any goes here */];
 
 const store = createStore(
   combinedReducers,
-  composeEnhancers(applyMiddleware(...middlewares))
+  composeEnhancers(applyMiddleware(...middlewares)),
 );
 
 sagaMiddleware.run(mainSaga);
 
-export { store };
+export {store};

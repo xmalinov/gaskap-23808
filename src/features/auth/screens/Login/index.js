@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {KeyboardAvoidingView, Keyboard, View, Image, Text} from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Keyboard,
+  View,
+  Image,
+  Text,
+  SafeAreaView,
+} from 'react-native';
 import {Input, Button, CheckBox} from 'react-native-elements';
 import GradientButton from '../../../../components/GradientButton';
 import {images} from '../../../../constants/images';
@@ -10,7 +17,6 @@ import {styles} from './styles';
 import * as authActions from '../../../../store/auth/constants';
 import * as customActions from '../../../../store/custom/constants';
 import SimpleToast from 'react-native-simple-toast';
-import {SafeAreaView} from 'react-native';
 import AuthFooter from '../../../../components/AuthFooter';
 import {authMessage} from '../../../../constants/message';
 
@@ -69,7 +75,7 @@ class Login extends Component {
   };
 
   handleForgetpassword = () => {
-    console.log('------------forget password--------');
+    this.props.navigation.navigate(ScreenConstants.forgetPassword);
   };
 
   render() {
@@ -148,6 +154,7 @@ const mapStateToProps = state => {
 const mapDispToProps = dispatch => ({
   login: obj => dispatch({type: authActions.LOGIN, obj}),
   getSchools: obj => dispatch({type: customActions.GET_SCHOOLS, obj}),
+  forgetPassword: obj => dispatch({type: authActions.GET_SCHOOLS, obj}),
 });
 
 export default connect(

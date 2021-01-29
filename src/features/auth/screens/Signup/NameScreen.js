@@ -11,6 +11,7 @@ import * as authActions from '../../../../store/auth/constants';
 import SimpleToast from 'react-native-simple-toast';
 import {authMessage} from '../../../../constants/message';
 import {userTypes} from '../../../../constants/generalConstants';
+import {KeyboardAvoidingView} from 'react-native';
 
 class NameScreen extends Component {
   state = {
@@ -30,10 +31,17 @@ class NameScreen extends Component {
     this.props.addName({name: value});
   };
 
+  handleSignin = () => {
+    this.props.navigation.reset({
+      index: 0,
+      routes: [{name: ScreenConstants.login}],
+    });
+  };
+
   render() {
     return (
       <View style={styles.wrapper}>
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container}>
           <View style={styles.itemsContainer}>
             <Text style={styles.confirmationTitle}>Add Your Name</Text>
             <Text style={styles.itemConfirmationCode}>
@@ -56,7 +64,7 @@ class NameScreen extends Component {
             // isLoading={true}
             />
           </View>
-        </View>
+        </KeyboardAvoidingView>
         <AuthFooter
           secondaryText={'Sign In.'}
           handleSignin={this.handleSignin}

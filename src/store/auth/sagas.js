@@ -35,10 +35,7 @@ function* loginWorker(action) {
     yield put(actions.loginSucceeded(result));
   } catch (err) {
     const errorMessage = generalUtils.parseErrorMessage(err);
-    const message = Array.isArray(errorMessage)
-      ? errorMessage[0]
-      : errorMessage;
-    SimpleToast.show(message);
+    SimpleToast.show(errorMessage);
     yield put(actions.loginFailed(err));
   }
 }
@@ -89,10 +86,7 @@ function* signupWorker(action) {
   } catch (err) {
     console.log(err);
     const errorMessage = generalUtils.parseErrorMessage(err);
-    const message = Array.isArray(errorMessage)
-      ? errorMessage[0]
-      : errorMessage;
-    SimpleToast.show(message);
+    SimpleToast.show(errorMessage);
     yield put(actions.signupFailed(err));
   }
 }
@@ -144,10 +138,7 @@ function* deactivateAccountWorker(action) {
     // yield put(actions.deactivateAccountSucceeded({}));
   } catch (err) {
     const errorMessage = generalUtils.parseErrorMessage(err);
-    const message = Array.isArray(errorMessage)
-      ? errorMessage[0]
-      : errorMessage;
-    SimpleToast.show(message);
+    SimpleToast.show(errorMessage);
     yield put(actions.deactivateAccountFailed(err));
   }
 }
@@ -164,16 +155,32 @@ function* logoutWorker(action) {
     yield put(actions.logoutSucceeded(result.data));
   } catch (err) {
     const errorMessage = generalUtils.parseErrorMessage(err);
-    const message = Array.isArray(errorMessage)
-      ? errorMessage[0]
-      : errorMessage;
-    SimpleToast.show(message);
+    SimpleToast.show(errorMessage);
     yield put(actions.logoutFailed(err));
   }
 }
 
 function* logoutWatcher() {
   yield takeEvery(types.LOG_OUT, logoutWorker);
+}
+
+function* forgetPasswordWorker(action) {
+  try {
+    const result = yield call(authApiService.forgetPassword, action);
+    const message = result.data
+      ? result.data.detail
+      : 'Password reset e-mail has been sent.';
+    SimpleToast.show(message);
+    yield put(actions.forgetPasswordSucceeded());
+  } catch (err) {
+    const errorMessage = generalUtils.parseErrorMessage(err);
+    SimpleToast.show(errorMessage);
+    yield put(actions.forgetPasswordFailed(err));
+  }
+}
+
+function* forgetPasswordWatcher() {
+  yield takeEvery(types.FORGET_PASSWORD, forgetPasswordWorker);
 }
 
 // Read more information about root sagas in the documentation
@@ -193,6 +200,7 @@ export default function* authRootSaga() {
     signupWatcher,
     deactivateAccountWatcher,
     logoutWatcher,
+    forgetPasswordWatcher,
   ];
 
   yield all(

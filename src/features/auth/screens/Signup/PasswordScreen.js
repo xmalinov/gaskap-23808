@@ -10,6 +10,7 @@ import * as authActions from '../../../../store/auth/constants';
 import SimpleToast from 'react-native-simple-toast';
 import {connect} from 'react-redux';
 import {authMessage} from '../../../../constants/message';
+import {KeyboardAvoidingView} from 'react-native';
 
 class PasswordScreen extends Component {
   state = {
@@ -73,7 +74,7 @@ class PasswordScreen extends Component {
   render() {
     return (
       <View style={styles.wrapper}>
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container}>
           <View style={styles.itemsContainer}>
             <Text style={styles.confirmationTitle}>Create a Password</Text>
             <Text style={styles.itemConfirmationCode}>
@@ -105,10 +106,10 @@ class PasswordScreen extends Component {
               isLoading={this.props.isRegisteringUser}
             />
             <Text style={styles.infoTitle}>
-              {`Once you register we will send a link on your email (${ this.props.email }) for verification.`}
+              {`Once you register we will send a link on your email (${this.props.email}) for verification.`}
             </Text>
           </View>
-        </View>
+        </KeyboardAvoidingView>
         <AuthFooter
           secondaryText={'Sign In.'}
           handleSignin={this.handleSignin}
